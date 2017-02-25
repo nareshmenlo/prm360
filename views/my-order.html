@@ -1,0 +1,90 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <aside id="chat" data-ng-include="'template/chat.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+    <section id="content">
+		<div class="container" data-ng-controller="itemCtrl">
+			
+			<div class="card">
+				<div class="card-header">
+					<h2>Auction Details</h2>
+				</div>
+				<div class="card-body card-padding">
+					<div class="table-responsive">
+						<table class="table table-striped table-vmiddle">
+							<thead>
+								<td>Vendor Name</td>
+								<td>Offer Price</td>
+								<td>Vendor city</td>
+								<td>Ratings</td>
+								<td>Delivery Time</td>
+								<td>View Quotations</td>
+								<td>Taxes (in %)</td>
+								<td>Price (incl. all Taxes)</td>
+								<td>Status of Request</td>
+							</thead>
+							<tbody>
+								<tr ng-repeat="auctionVendor in auctionItem.AuctionVendors">
+									<td>{{auctionVendor.Name}}</td>
+									<td>{{auctionVendor.OfferPrice}}</td>
+									<td>{{auctionVendor.City}}</td>
+									<td>{{auctionVendor.Rating}}</td>
+									<td>{{auctionVendor.DeliveryTime}}</td>
+									<td><a href="{{auctionVendor.Quotation}}">View Quotation</a></td>
+									<td>{{auctionVendor.TaxPercent}}</td>
+									<td>{{auctionVendor.TotalPriceIncl}}</td>
+									<td class="" ng-class="{'text-success':auctionVendor.Status == 'Accepted', 'text-warning':auctionVendor.Status == 'Pending', 'text-danger':auctionVendor.Status == 'Rejected'}">{{auctionVendor.Status}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="card">
+				<div class="card-header">
+					<h2>Requirement Details</h2>
+				</div>
+				<div class="card-body card-padding">
+					<div class="pmb-block">
+					    <div class="pmbb-body p-l-30">
+					        <div class="pmbb-view" >
+					            <dl class="dl-horizontal">
+					                <dt>Title:</dt>
+					                <dd>{{auctionItem.Title}}</dd>
+					            </dl>
+					            <dl class="dl-horizontal">
+					                <dt>Description:</dt>
+					                <dd>{{ auctionItem.Description }}</dd>
+					            </dl>
+					            <dl class="dl-horizontal">
+					                <dt>Cateogies:</dt>
+					                <dd>{{ auctionItem.Cateogies }}</dd>
+					            </dl>
+					            <dl class="dl-horizontal">
+					                <dt>Budget:</dt>
+					                <dd>{{ auctionItem.Budget }}</dd>
+					            </dl>
+					            <dl class="dl-horizontal">
+					                <dt>Delivery Location:</dt>
+					                <dd>{{ auctionItem.DeliveryLoc }}</dd>
+					            </dl>
+					            <dl class="dl-horizontal">
+					                <dt>Taxes:</dt>
+					                <dd>{{auctionItem.Taxes }}</dd>
+					            </dl>
+					            <dl class="dl-horizontal">
+					                <dt>PaymentTerms:</dt>
+					                <dd>{{ auctionItem.PaymentTerms }}</dd>
+					            </dl>
+					        </div>
+					    </div>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</section>
+</section>
+
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>

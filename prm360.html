@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+    <!--[if IE 9 ]><html class="ie9" data-ng-app="prmApp" data-ng-controller="prmAppCtrl as mactrl"><![endif]-->
+    <![if IE 9 ]><html data-ng-app="prmApp" data-ng-controller="prmAppCtrl as mactrl"><![endif]>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="-1" />
+        <title>PRM360</title>
+
+        <!-- Vendor CSS -->
+        <link href="vendors/vendorcss.css" rel="stylesheet">
+       
+        <!-- CSS -->
+        <link href="css/app.min.1.css" rel="stylesheet" id="app-level">
+        <link href="css/app.min.2.css" rel="stylesheet">
+        <link href="css/demo.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/media.css" rel="stylesheet">
+        <link href="vendors/bower_components/multi-selection/isteven-multi-select.css" rel="stylesheet">
+        <link href="vendors/bower_components/ngDialog/ngDialog.css" rel="stylesheet">
+        <link href="vendors/bower_components/ngDialog/ngDialog-theme-default.css" rel="stylesheet">
+        <style type="text/css">
+           html, body
+          {
+            /* this is to handle IE scroll bar */
+            -ms-overflow-style: scrollbar;
+          }
+        </style>
+
+    </head>
+
+    <body data-ng-class="{ 'sw-toggled': mactrl.layoutType === '1'}">
+
+        <data ui-view></data>
+        
+        <!-- Older IE warning message -->
+        <!--[if lt IE 9]>
+            <div class="ie-warning">
+                <h1 class="c-white">Warning!!</h1>
+                <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
+                <div class="iew-container">
+                    <ul class="iew-download">
+                        <li>
+                            <a href="http://www.google.com/chrome/">
+                                <img src="img/browsers/chrome.png" alt="">
+                                <div>Chrome</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.mozilla.org/en-US/firefox/new/">
+                                <img src="img/browsers/firefox.png" alt="">
+                                <div>Firefox</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://www.opera.com">
+                                <img src="img/browsers/opera.png" alt="">
+                                <div>Opera</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.apple.com/safari/">
+                                <img src="img/browsers/safari.png" alt="">
+                                <div>Safari</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
+                                <img src="img/browsers/ie.png" alt="">
+                                <div>IE (New)</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <p>Sorry for the inconvenience!</p>
+            </div>
+        <![endif]-->
+
+
+        <!-- Core -->
+        <script src="vendors/vendor.js"></script>
+        <script src="vendors/bower_components/multi-selection/isteven-multi-select.js"></script>
+        <script src="vendors/bower_components/ngDialog/ngDialog.js"></script>
+       
+        
+        <script src="~/signalr/hubs"></script>
+
+   
+        
+        <!-- App level -->
+        <script src="js/app.js"></script>
+        <script src="js/config.js"></script>
+        <script src="js/controllers/main.js"></script>
+        <script src="js/controllers/auctionsCtrl.js"></script>
+        <script src="js/controllers/editFormCtrl.js"></script>
+        <script src="js/controllers/formCtrl.js"></script>
+        <script src="js/controllers/headerCtrl.js"></script>
+        <script src="js/controllers/itemCtrl.js"></script>
+        <script src="js/controllers/loginCtrl.js"></script>
+        <script src="js/controllers/modalInstanceCtrl.js"></script>
+        <script src="js/controllers/profileCtrl.js"></script>
+        <script src="js/controllers/POCtrl.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/templates.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/controllers/ui-bootstrap.js"></script>
+        <script src="js/controllers/table.js"></script>
+        <script src="js/controllers/resetPassCtrl.js"></script>
+        <script src="js/controllers/meterialDispatchmentCtrl.js"></script>
+        <script src="js/controllers/viewprofileCtrl.js"></script>
+        <script src="js/controllers/paymentCtrl.js"></script>
+        <script src="js/controllers/bidHistoryCtrl.js"></script>
+
+        <!-- Template Modules -->
+        <script src="js/modules/template.js"></script>
+        <script src="js/modules/ui.js"></script>
+        <script src="js/modules/charts/flot.js"></script>
+        <script src="js/modules/charts/other-charts.js"></script>
+        <script src="js/modules/form.js"></script>
+        <script src="js/modules/media.js"></script>
+        <script src="js/modules/components.js"></script>
+        <script src="js/modules/calendar.js"></script>
+        <script src="js/modules/demo.js"></script>
+        <script src="js/modules/SignalRFactory.js"></script>
+        <script src="js/modules/fileUpload.js"></script>
+        <script src="js/user/user.controller.js"></script>
+        <script src="js/user/userService.js"></script>
+    </body>
+</html>
+

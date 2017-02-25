@@ -1,0 +1,191 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+
+    <aside id="chat" data-ng-include="'template/chat.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+
+    <section id="content" data-ng-controller="auctionsCtrl">
+
+    <div class="container">
+        <div class="block-header">
+            <h2></h2>
+            <!-- Dashboard -->
+        </div>
+        <div class="row mini-charts"  >
+            <div class="col-md-3">
+              <main id="container_animation" >
+                <h4>Total Turnover</h4>
+                <p class="detail" ng-bind-html= "dashboardStats.totalTurnover | numToCurrency"></p>
+                <div class="button-wrapper">
+                    <div class="layer"></div>
+                    <button class="main-button fa fa-info">
+                        <div class="ripple"></div>
+                    </button>
+                </div>
+
+                 <div class="layered-content">
+                    <button class="close-button fa fa-times"></button>
+                    <div class="content">
+                        <p class="p-20">Total value of the transactions made till date.</p>
+                    </div>
+                </div>
+              </main>
+            </div>
+            <div  class="col-md-3" ng-if="showAddNewReq();"> 
+              <main id="container_animation">
+                <h4>Amount saved by Company</h4>
+                <p class="detail" ng-bind-html= "dashboardStats.totalSaved | numToCurrency"></p>
+                <div class="button-wrapper">
+                    <div class="layer"></div>
+                    <button class="main-button fa fa-info">
+                        <div class="ripple"></div>
+                    </button>
+                </div>
+
+                 <div class="layered-content">
+                    <button class="close-button fa fa-times"></button>
+                    <div class="content">
+                        <p class="p-20">Total amount saved by PRM360 till date.</p>
+                    </div>
+                </div>
+              </main>
+            </div>
+            <div class="col-md-3">
+              <main id="container_animation">
+                
+                 <h4>Total Orders</h4>
+                <p class="detail">{{dashboardStats.totalOrders}}</p>
+                <div class="button-wrapper">
+                    <div class="layer"></div>
+                    <button class="main-button fa fa-info">
+                        <div class="ripple"></div>
+                    </button>
+                </div>
+
+                 <div class="layered-content">
+                    <button class="close-button fa fa-times"></button>
+                    <div class="content">
+                        <p class="p-20">Number of orders generated through PRM360 till date.</p>
+                    </div>
+                </div>
+              </main>
+            </div>
+            <div  class="col-md-3" ng-if="!showAddNewReq();"> 
+              <main id="container_animation">
+                <h4>Total Negotiations Participated</h4>
+                <p class="detail">{{dashboardStats.totalSaved}}</p>
+                <div class="button-wrapper">
+                    <div class="layer"></div>
+                    <button class="main-button fa fa-info">
+                        <div class="ripple"></div>
+                    </button>
+                </div>
+                 <div class="layered-content">
+                    <button class="close-button fa fa-times"></button>
+                    <div class="content">
+                        <p class="p-20">Total number of negotiations paticipated through PRM360 till date.</p>
+                    </div>
+                </div>
+              </main>
+            </div>
+            <div class="col-md-3">
+              <main id="container_animation">
+                <h4 ng-if="showAddNewReq();">Total Requirements Posted</h4>
+                <h4 ng-if="!showAddNewReq();">Total Negotiations Invited</h4>
+                <p class="detail">{{dashboardStats.totalAuctions}}</p>
+                <div class="button-wrapper">
+                    <div class="layer"></div>
+                    <button class="main-button fa fa-info">
+                        <div class="ripple"></div>
+                    </button>
+                </div>
+                <div class="layered-content">
+                    <button class="close-button fa fa-times"></button>
+                    <div class="content">
+                        <p class="p-20">Total number of requirements posted till date.</p>
+                    </div>
+                </div>
+              </main>
+          </div> 
+        </div>
+        <div class="row ">
+            <div class="col-md-12 tilesBackground  z-depth-1">
+                <div class="sectiontitle">
+                    <h2>Current Negotiations</h2>
+                </div>
+                <div class="">
+                    <div class="hotauctions" ng-if="myHotAuctionsLoaded">
+                        <mini-items ng-repeat="item in myHotAuctions" item="item" timeleft="item.auctionTimerId"></mini-items>
+                    </div>
+                    <div class="noitems" ng-if="!myHotAuctionsLoaded">
+                        <span ng-bind="hotAuctionsMessage"></span>
+                    </div>
+                </div>
+                <div class="cardseemore">
+                    <button class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="changeHotAuctionsLimit();">See more</button>
+                </div> 
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-12 tilesBackground  z-depth-1">
+                <div class="sectiontitle">
+                    <h2>Today's Negotiations</h2>
+                </div>
+                <div class="">
+                    <div class="todayauctions" ng-if="todaysAuctionsLoaded">
+                        <mini-items ng-repeat="item in todaysAuctions" item="item" timeleft="item.auctionTimerId"></mini-items>            
+                    </div>
+                    <div class="noitems" ng-if="!todaysAuctionsLoaded">
+                        <span ng-bind="todayAuctionsMessage"></span>
+                    </div>
+                </div>
+                <div class="cardseemore">
+                    <button class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="changeTodaysAuctionsLimit();">See more</button>
+                </div>    
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 tilesBackground  z-depth-1">
+                <div class="sectiontitle">
+                    <h2>Scheduled Negotiations</h2>
+                </div>
+                <div class="">
+                    <div class="scheduledauctions" ng-if="scheduledAuctionsLoaded">
+                        <mini-items ng-repeat="item in scheduledAuctions" item="item" timeleft="item.auctionTimerId"></mini-items>                
+                    </div>
+                    <div class="noitems" ng-if="!scheduledAuctionsLoaded">
+                        <span ng-bind="scheduledAuctionsMessage"></span>
+                    </div>
+                </div>
+                <div class="cardseemore">
+                    <button class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="changeScheduledAuctionsLimit();">See more</button>
+                </div> 
+            </div>
+        </div>
+<!-- </div> -->
+</section>
+</section>
+<a ng-if="showAddNewReq();" data-ui-sref="form.addnewrequirement" class="btn btn-float btn-danger m-btn"><i class="zmdi zmdi-plus"></i></a>
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>
+<script type="text/javascript">
+var $mainButton = $("body .main-button"),
+$closeButton = $(".close-button"),
+$buttonWrapper = $(".button-wrapper"),
+$ripple = $(".ripple"),
+$layer = $(".layered-content");
+
+$mainButton.on("click", function(){
+    $(this).parent().parent().find('.ripple').addClass("rippling");
+    $(this).parent().parent().find('.button-wrapper').addClass("clicked").clearQueue().delay(1000).queue(function(){
+       $(this).parent().parent().find('.layered-content').addClass("active");
+    });
+});
+
+$closeButton.on("click", function(){
+    $(this).closest('#container_animation').find('.button-wrapper').removeClass('clicked');
+    $(this).closest('#container_animation').find('.ripple').removeClass('rippling');
+    $(this).closest('#container_animation').find('.layered-content').removeClass('active');    
+});
+
+</script>

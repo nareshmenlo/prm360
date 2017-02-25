@@ -1,0 +1,136 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+    <aside id="chat" data-ng-include="'template/chat.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+    <section id="content">
+        <div class="container" data-ng-controller="POCtrl">
+            <div class="block-header">
+                <h2>{{auctionItem.title}}</h2>
+            </div>
+            <form ng-submit="requirementForm.$valid && postRequest()" class="requirementForm" name="requirementForm" novalidate>
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Purchase Order Generation Form</h2>
+                    </div>
+                    <div class="card-header">  Price: <span ng-bind-html="formRequest.selectedVendor.totalRunningPrice | numToCurrency"></span></div>
+                    </br>
+                    <div class="card-body card-padding">
+                        <!-- <div class="form-group fg-float">
+                            <div class="fg-line input-field fg-toggled">
+                                <select ng-disabled="isEdit===true" ng-model="formRequest.selectedVendor" name="vendor" class="form-control" ng-options="vendor as vendor.vendorName for vendor in auctionItem.auctionVendors" data-placeholder="Select a vendor"></select>
+                                <label class="selectfield fg-label" for="vendor">Select a vendor</label>
+                            </div>
+                        </div> -->
+                        <div class="form-group fg-float">
+                            <div class="fg-line input-field fg-toggled">
+                                <input ng-model="formRequest.POID" id="price" name="price" class="form-control fg-input fg-toggled"/>
+                                <label class="fg-label">Enter Purchase Order No.</label>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float">
+                            <div class="fg-line input-field fg-toggled">
+                                <textarea ng-model="formRequest.comments" id="comments" name="comments" rows="5" class="form-control fg-input fg-toggled"></textarea>
+                                <label class="fg-label">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                <div class="card-header">
+                     <h2>Upload Purchase Order :  <input type="checkbox" ng-model="checked">
+                     </h2>
+                        <div>
+                          <div ng-show="checked"> 
+                          <br>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <span class="btn btn-primary btn-file">
+                                <span class="fileinput-new">Choose a file</span>
+                                <span class="fileinput-exists">Change</span>
+                                <input type="file"  id="poFile" doctype="poFile" ng-file-select-docs="onFileSelect($files)" />
+                                </span>
+                                <span class="fileinput-filename" data-ng-model="formRequest.poFile.fileName"></span>
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Purchase Order Details <small>Please provide more details about the purchase order.</small></h2>
+                    </div>
+
+                    <div class="card-body card-padding">
+                        <div class="row">
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true || !requirementForm.deliveryAddress.$error.required}">
+                                    <textarea type="text" ng-model="formRequest.deliveryAddress" id="deliveryAddress" name="deliveryAddress" class="form-control" rows="3" required></textarea>
+                                    <label class="fg-label">Delivery Address</label>
+                                </div>
+                                <div ng-show="requirementForm.$submitted || requirementForm.deliveryAddress.$touched">
+                                    <div class="help-block error logininput" ng-show="requirementForm.deliveryAddress.$error.required">Please enter Delivery Address</div>
+                                </div>
+                            </div>
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true || !requirementForm.billingAddress.$error.required}">
+                                    <textarea type="text" ng-model="formRequest.billingAddress" id="billingAddress" name="billingAddress" class="form-control" rows="3" required></textarea>
+                                    <label class="fg-label">Billing Address</label>
+                                </div>
+                                <div ng-show="requirementForm.$submitted || requirementForm.billingAddress.$touched">
+                                    <div class="help-block error logininput" ng-show="requirementForm.billingAddress.$error.required">Please enter Billing Address</div>
+                                </div>
+                            </div>
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true || !requirementForm.expectedDelivery.$error.required}">
+                                    <input ng-readonly="true" type="text" ng-model="formRequest.expectedDelivery" required name="expectedDelivery" id="expectedDelivery" class="form-control fg-input" datetime-picker date-format="dd-MM-yyyy" date-only>
+                                    <label class="fg-label">Expected Delivery Date</label>
+                                </div>
+                                <div ng-show="requirementForm.$submitted || requirementForm.expectedDelivery.$touched">
+                                    <div class="help-block error logininput" ng-show="requirementForm.expectedDelivery.$error.required">Please enter Expected Delivery Date</div>
+                                </div>
+                            </div>
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true || !requirementForm.paymentScheduleDate.$error.required}">
+                                    <input type="text" ng-model="formRequest.paymentScheduleDate" required name="paymentScheduleDate" id="paymentScheduleDate" class="form-control fg-input">
+                                    <label class="fg-label">Payment Schedule Date / Terms</label>
+                                </div>
+                                <div ng-show="requirementForm.$submitted || requirementForm.paymentScheduleDate.$touched">
+                                    <div class="help-block error logininput" ng-show="requirementForm.paymentScheduleDate.$error.required">Please enter Payment Schedule Date</div>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true}">
+                                    <input type="number" ng-model="formRequest.taxes" class="form-control fg-input" name="taxes" id="taxes" required>
+                                    <label class="fg-label">Taxes (in %)</label>
+                                </div>
+                                <div ng-show="requirementForm.$submitted || requirementForm.taxes.$touched">
+                                    <div class="help-block error logininput" ng-show="requirementForm.taxes.$error.required">Please enter Taxes</div>
+                                </div>
+                            </div> -->
+
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true || !requirementForm.paymentMode.$error.required}">
+                                    <input type="text" ng-model="formRequest.paymentMode" required name="paymentMode" id="paymentMode" class="form-control fg-input">
+                                    <label class="fg-label">Payment Mode</label>
+                                </div>
+                                <div ng-show="requirementForm.$submitted || requirementForm.paymentMode.$touched">
+                                    <div class="help-block error logininput" ng-show="requirementForm.paymentMode.$error.required">Please enter Payment Payment Mode</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-file m-r-10">Generate PO</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>

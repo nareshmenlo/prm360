@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <connectionStrings>
+
+    <add name="MySQLConnectionString" connectionString="server=182.18.169.29;user id=prmdb;password=prm360@acads;database=prmdbdev;pooling=false;" providerName="MySql.Data.MySqlClient" />
+  </connectionStrings>
+  <appSettings>
+    <!--add key="SMSURL" value="http://tr.smsadda.co.in/API/sms.php?username=RITESH1&amp;password=123456&amp;from={0}&amp;to={1}&amp;msg={2}&amp;type=1&amp;dnd_check=0"/-->
+    <!--<add key="SMSURL" value="http://bulksmsgateway.in/sendmessage.php?user=ritesh&amp;password=9949245791&amp;sender={0}&amp;mobile={1}&amp;message={2}&amp;type=3" />-->
+    <!--add key="SMSURL" value="http://www.metamorphsystems.com/index.php/api/bulk-sms?username=acads360&amp;password=acadssms&amp;from={0}&amp;to={1}&amp;message={2}" /-->
+
+    <add key="SMSURL" value="http://api.smscountry.com/SMSCwebservice_bulk_live.aspx?User=Acads360&amp;passwd=06241979&amp;mobilenumber={1}&amp;message={2}&amp;sid={0}&amp;mtype=N&amp;DR=Y" />
+
+    <add key="SMSURLLANG" value="http://bulksmsgateway.in/unicodesmsapi.php?username=ritesh&amp;password=9949245791&amp;mobilenumber={1}&amp;message={2}&amp;senderid={0}&amp;type=3" />
+    
+    <add key="FROMADDRESS" value="no-reply@prm360.com" />
+    <add key="FROMDISPLAYNAME" value="PRMDEV" />
+    <!--<add key="SMSURL" value="http://bulksmsgateway.in/sendmessage.php?user=ritesh&amp;password=9949245791&amp;sender={0}&amp;mobile={1}&amp;message={2}&amp;type=3" />-->
+    <add key="SMSURLLANG" value="http://bulksmsgateway.in/unicodesmsapi.php?username=ritesh&amp;password=9949245791&amp;mobilenumber={1}&amp;message={2}&amp;senderid={0}&amp;type=3" />
+    <add key="SMSFROM" value="PRMDEV" />
+    <add key="OCRURL" value="https://api.ocr.space/Parse/Image" />
+    <add key="MAILHOST_USER" value="azure_6f1885de2190df71277e1d1068d38b1b@azure.com" />
+    <add key="MAILHOST_PWD" value="acadsprm360" />
+    <add key="MAILHOST" value="smtp.sendgrid.net" />
+    <!--<add key="MAILHOST" value="webmail.prm360.com" />
+    <add key="MAILHOST_USER" value="no-reply@prm360.com" />
+    <add key="MAILHOST_PWD" value="N@r$y76" />-->
+    <add key="TELEGRAM_MSG" value="PRM360 Notifications DEV" />
+  </appSettings>
+  <system.diagnostics>
+    <sources>
+      <source propagateActivity="true" name="System.ServiceModel" switchValue="Information, ActivityTracing">
+        <listeners>
+          <add type="System.Diagnostics.DefaultTraceListener" name="Default">
+            <filter type="" />
+          </add>
+          <add initializeData="C:\Project\logs\Traces.svclog" type="System.Diagnostics.XmlWriterTraceListener" name="traceListener">
+            <filter type="" />
+          </add>
+        </listeners>
+      </source>
+    </sources>
+    <trace>
+      <listeners>
+        <add type="Microsoft.WindowsAzure.Diagnostics.DiagnosticMonitorTraceListener, Microsoft.WindowsAzure.Diagnostics, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" name="AzureDiagnostics">
+          <filter type="" />
+        </add>
+      </listeners>
+    </trace>
+  </system.diagnostics>
+  <system.web>
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime maxRequestLength="65536000" />
+    <customErrors mode="Off" />
+  </system.web>
+  <system.serviceModel>
+    <client>
+      <endpoint address="http://ptmapps.com/supporting/service" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IPTMGenericServices1" contract="SupportingServices1.IPTMGenericServices" name="BasicHttpBinding_IPTMGenericServices" />
+    </client>
+    <services>
+      <service behaviorConfiguration="commonBehaviour" name="PRMServices.PRMServices">
+        <endpoint address="REST" behaviorConfiguration="restBehavior" binding="webHttpBinding" bindingConfiguration="webHttpConfig" contract="PRMServices.IPRMServices" />
+        <endpoint address="" binding="basicHttpBinding" contract="PRMServices.IPRMServices" />
+      </service>
+    </services>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior name="restBehavior">
+          <webHttp helpEnabled="true" />
+          <dataContractSerializer ignoreExtensionDataObject="true" maxItemsInObjectGraph="2147483646" />
+        </behavior>
+      </endpointBehaviors>
+      <serviceBehaviors>
+        <behavior name="commonBehaviour">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="false" />
+          <dataContractSerializer maxItemsInObjectGraph="2147483646" />
+          <serviceDebug includeExceptionDetailInFaults="true" />
+          <serviceTimeouts transactionTimeout="00:10:00" />
+          <serviceThrottling maxConcurrentCalls="200" maxConcurrentSessions="100" maxConcurrentInstances="100" />
+        </behavior>
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+          <serviceDebug includeExceptionDetailInFaults="false" />
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true" />
+    <bindings>
+      <basicHttpBinding>
+        <binding name="basicHttpConfig" closeTimeout="00:30:00" openTimeout="00:30:00" receiveTimeout="00:30:00" sendTimeout="00:30:00" maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+        </binding>
+        <binding name="BasicHttpBinding_IPTMGenericServices" />
+        <binding name="BasicHttpBinding_IPTMGenericServices1" />
+      </basicHttpBinding>
+      <webHttpBinding>
+        <binding name="webHttpConfig" closeTimeout="00:30:00" openTimeout="00:30:00" receiveTimeout="00:30:00" sendTimeout="00:30:00" maxBufferSize="2147483647" maxBufferPoolSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+        </binding>
+      </webHttpBinding>
+    </bindings>
+
+  </system.serviceModel>
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true">
+      <remove name="WebDAVModule" />
+      <remove name="UrlRoutingModule-4.0" />
+      <add name="UrlRoutingModule-4.0" type="System.Web.Routing.UrlRoutingModule" preCondition="" />
+
+    </modules>
+    <httpProtocol>
+      <customHeaders>
+        <add name="Access-Control-Allow-Origin" value="*" />
+        <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE, OPTIONS" />
+        <add name="Access-Control-Allow-Headers" value="Content-Type" />
+        <add name="Access-Control-Max-Age" value="1728000" />
+      </customHeaders>
+    </httpProtocol>
+    <!--
+        To browse web app root directory during debugging, set the value below to true.
+        Set to false before deployment to avoid disclosing web app folder information.
+    -->
+    <directoryBrowse enabled="false" />
+  </system.webServer>
+  <location path="views">
+    <system.webServer>
+      <staticContent>
+        <clientCache cacheControlMode="DisableCache" />
+      </staticContent>
+    </system.webServer>
+  </location>
+  <location path="js">
+    <system.webServer>
+      <staticContent>
+        <clientCache cacheControlMode="DisableCache" />
+      </staticContent>
+    </system.webServer>
+  </location>
+
+  <runtime>
+
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+
+
+      <dependentAssembly>
+
+        <assemblyIdentity name="Microsoft.Owin" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+
+        <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
+
+      </dependentAssembly>
+
+      <dependentAssembly>
+
+        <assemblyIdentity name="Microsoft.Owin.Security" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+
+        <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
+
+      </dependentAssembly>
+
+      <dependentAssembly>
+
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+
+        <bindingRedirect oldVersion="0.0.0.0-9.0.0.0" newVersion="9.0.0.0" />
+
+      </dependentAssembly>
+
+    </assemblyBinding>
+
+  </runtime>
+  <system.data>
+    <DbProviderFactories>
+      <remove invariant="MySql.Data.MySqlClient" />
+      <add name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" description=".Net Framework Data Provider for MySQL" type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+    </DbProviderFactories>
+  </system.data>
+</configuration>

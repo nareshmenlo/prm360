@@ -1,0 +1,1144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<EmailTemplates>
+  
+    
+<emailOTP>
+<![CDATA[One Time Password (OTP) for PRM360 is {0}]]>
+</emailOTP>
+  
+<VerifyOTPSMS>
+<![CDATA[You have completed Mobile One Time Password verification with PRM360,<br/><br/>Thanks for Registering with PRM360.]]>
+</VerifyOTPSMS>
+  
+<VerifymailOTPSMS>
+<![CDATA[You have completed Email OTP verification with PRM360,<br/><br/>Thanks for using PRM360.]]>
+</VerifymailOTPSMS>
+  
+<VerifyOTPemail>
+<![CDATA[You have completed Mobile OTP verification with PRM360.]]>
+</VerifyOTPemail>
+  
+<VerifyEmailOTPemail>
+<![CDATA[You have completed Email OTP verification with PRM360
+<br/><br/>
+Thanks for using PRM360.]]>
+</VerifyEmailOTPemail>
+  
+<DocumentVerificationemail>
+<![CDATA[Congratulations!
+<br/><br/> 
+Your documents have been verified by our personnel.
+<br/><br/> 
+You can start using the PRM application to the fullest extent going forward.]]>
+</DocumentVerificationemail>
+  
+<ChangePassWordemail>
+<![CDATA[Dear {0} {1}, 
+<br/><br/>
+Your Password is updated successfully. Please use the latest password to login to the PRM360.COM.
+<br/><br/>
+<br/><br/>
+If you have not changed the password and you have received this e-mail, it may mean that somebody else has changed the password. 
+<br/><br/>
+Please contact 040- 42010360 immediately.]]>
+</ChangePassWordemail>
+    
+  
+<EmailFooter>
+<![CDATA[
+<br/><br/>
+Thank You<br/>PRM360  Team
+<br/>
+<a href="https://www.facebook.com/PRM360">Facebook</a> //
+<a href="https://twitter.com/PRM360">twitter</a>
+<br/>
+Website: <a href="www.prm360.com">www.prm360.com<a/>
+<br/>
+<br/><br/>
+<b>IMPORTANT: </b>This is a system-generated mail. Please do not reply to this email address. If you have a query or need any clarification, please contact Customer Care on 040-42010360.
+<br/><br/>
+<u><b>CONFIDENTIALITY INFORMATION AND DISCLAIMER: </b></u>
+This e-mail message and its attachments may contain confidential, proprietary or legally privileged information and is intended solely for the use of the individual or entity to whom it is addressed.
+If you have received this message erroneously, please delete it immediately and notify the sender.
+If you are not the intended recipient of this e-mail message, you should not disseminate, distribute or copy this e-mail.
+E-mail transmission cannot be guaranteed to be secure or error-free, as information could be intercepted, corrupted, lost, destroyed or incomplete or
+the e-mail can contain viruses and PRM360 accepts no liability for any damage caused by the limitations of e-mail transmission.
+]]>
+</EmailFooter>
+  
+  
+    
+  
+<RegisterUseremail>
+<![CDATA[Dear {0} {1}, 
+<br/><br/>
+Congratulations..!
+<br/><br/>
+Your registration process is now completed successfully.
+<br/><br/>
+Please login to the system and share your requirment with the vendors and start saving money on your procurement.]]>
+</RegisterUseremail>
+
+<RegisterUsersms>
+<![CDATA[
+<br/>
+Name : {0} {1}
+<br/>
+Mobile : {2}
+<br/>
+Email : {3}
+<br/>
+Company Name : {4}
+]]>
+</RegisterUsersms>
+
+<RegisterUserVendorsms>
+<![CDATA[
+<br/>
+Name : {0} {1}
+<br/>
+Mobile : {2}
+<br/>
+Email : {3}
+<br/>
+Company Name : {4}
+<br/>
+Category : {5}
+]]>
+</RegisterUserVendorsms>
+  
+<RegisterUserVendoremail>
+<![CDATA[Dear {0} {1},
+<br/><br/>
+Congratulations..!
+<br/><br/>
+Your registration process is now completed successfully.
+<br/><br/>
+Looking forward for many leads from the reputed organizations.
+<br/><br/>
+We shall keep you posted through the messages when we have a requirement for you.]]>
+</RegisterUserVendoremail>
+  
+  
+    
+  
+<PostRequirementemail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your requirement {3} was successfully posted on PRM360.com.
+<br/><br/>
+<b>Quotation Freez Time : {4}</b>
+<br/><br/>
+You will start to receive Quotations from valued vendors soon. 
+<br/><br/>
+If you need any help, don't hesitate to <a href="https://prm360.com/#contact">contact us</a> or visit our FAQ page <a href="www.prm360.com">www.prm360.com<a/>. 
+<br/><br/>
+Please go to this link to access the requirement details: <br/><br/> <a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement<a/>.]]>
+</PostRequirementemail>
+  
+<PostRequirementsms>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations.!<br/><br/>Your requirement {3} has been posted successfully to the selected Vendors.
+<br/><br/>
+<b>Quotation Freez Time : {4}</b>
+<br/><br/>
+You will  receive an update through  SMS/email once you have vendors submitting their quotations online.
+<br/><br/>
+You can track your requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Team-PRM360.]]>
+</PostRequirementsms>
+    
+<Vendoremail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+You have a new lead for our prestigious client for {3} posted on PRM360.com. 
+<br/><br/>
+<b>Quotation Freez Time : {4}</b>
+<br/><br/>
+You can review the detailed requirement and post Quotations to stand a chance to win the order. 
+<br/><br/>
+If you need any help, don't hesitate to <a href="https://prm360.com/#contact">contact us</a> @PRM360. 
+<br/><br/>
+Please go to this link to access the requirement details: <br/><br/> <a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.]]>
+</Vendoremail>
+  
+<Vendorsms>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations.! 
+<br/><br/>
+You have a new lead from PRM360 for a reputed organization. 
+<br/><br/>
+<b>Quotation Freez Time : {4}</b>
+<br/><br/>
+Kindly login to PRM360 and review the detailed requirement and post your quotations online. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Team-PRM360.]]>
+</Vendorsms>
+  
+<VendoremailForReqUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Customer has updated the requirement {3}. 
+<br/><br/>
+<b>Quotation Freez Time : {4}</b>
+<br/><br/>
+Kindly login to PRM360 and review the updates. 
+<br/><br/>
+You can track the requirement through <a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>]]>
+</VendoremailForReqUpdate>
+  
+<VendorsmsForReqUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Customer has updated the requirement {3}. Kindly login to PRM360 and review the updates.
+<br/><br/>
+<b>Quotation Freez Time : {4}</b>
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}. 
+<br/><br/>
+Team-PRM360.]]>
+</VendorsmsForReqUpdate>
+  
+  
+<QuotationUploadedemail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+{2} {3} has posted his Quotation for your requirement {4}.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{4}">View Requirement</a>.
+<br/><br/>
+Kindly review it and reach out to vendor incase if you need any clarification.]]>
+</QuotationUploadedemail>
+<QuotationUploadedsms>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+{2} {3} has posted his Quotation for your requirement {4}. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{4}. 
+<br/><br/>
+Kindly review it and reach out to vendor incase if you need any clarification.]]>
+</QuotationUploadedsms>
+    
+  
+      
+<QuotationUploadedVendoremail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations..! 
+<br/><br/>
+Your Quotation has been successfully posted. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{3}">View Requirement</a>.
+<br/><br/>
+We have updated the customer about your quotation. 
+<br/><br/>
+We would keep you posted with the updates on the next steps through SMS/e-mail. All the best.]]>
+</QuotationUploadedVendoremail>
+<QuotationUploadedVendorsms>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations..! 
+<br/><br/>
+Your Quotation has been successfully posted. 
+<br/><br/>
+We have updated the customer about your quotation. We would keep you posted with the updates on the next steps through SMS/e-mail. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{3}.
+<br/><br/>
+All the best. 
+<br/><br/>
+Team-PRM360.]]>
+</QuotationUploadedVendorsms>
+    
+    
+ 
+<CustomeremailForAuctionStartUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your Requirement ID {2} e-Negotiation is Scheduled at {3} successfully.
+<br/><br/>
+We have sent the message to the selected Vendors about the Scheduled date.
+<br/><br/>
+We look forward for an seemless execution of your requirment.
+<br/><br/>
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+All the best.]]>
+</CustomeremailForAuctionStartUpdate>
+
+<CustomersmsForAuctionStartUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your Requirement ID {2} e-Negotiation is Scheduled at {3} successfully. We have sent the message to the selected Vendors about the Scheduled date. We look forward for an seemless execution of your requirment.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{3}.
+<br/><br/>
+All the best.
+<br/><br/>
+Team-PRM360.]]>
+</CustomersmsForAuctionStartUpdate>
+  
+<VendoremailForAuctionStartUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Requirement ID {2} e-Negotiation is Scheduled at {3}. 
+<br/><br/>
+Please be prepared to be online at least 15 minutes before negotiations for seemless experience. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+All the best.]]>
+</VendoremailForAuctionStartUpdate>
+
+<VendorsmsForAuctionStartUpdate>
+<![CDATA[Dear {0} {1},
+<br/><br/>
+Negotiations for the Requirement ID {2} has been updated to {3} . 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you,
+Team-PRM360.]]>
+</VendorsmsForAuctionStartUpdate>
+  
+    
+<CustomeremailForUpdateAuctionStartUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your Requirement ID {2} e-Negotiation is updated to  {3} successfully. 
+<br/><br/>
+We have sent the message to the selected Vendors about the Scheduled date.
+<br/><br/>
+We look forward for an seemless execution of your requirment.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+All the best.]]>
+</CustomeremailForUpdateAuctionStartUpdate>
+
+  <NegotiationStartSms>
+    <![CDATA[Hi {0} {1},
+<br/><br/>
+The e-Negotiation for Requirement ID {2} is about to start.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+All the best.
+Team-PRM360.]]>
+  </NegotiationStartSms>
+
+  <NegotiationStartSms>
+    <![CDATA[Hi {0} {1},
+<br/><br/>
+The e-Negotiation for Requirement ID {2} is about to restart.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+All the best.
+Team-PRM360.]]>
+  </NegotiationStartSms>
+
+
+  <CustomersmsForUpdateAuctionStartUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your Requirement ID {2} e-Negotiation is updated to {3} successfully. We have sent the message to the selected Vendors about the Scheduled date. We look forward for an seemless execution of your requirment.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+All the best.
+Team-PRM360.]]>
+</CustomersmsForUpdateAuctionStartUpdate>
+  
+<VendoremailForUpdateAuctionStartUpdate>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The requirement {2} e-Negotiation is updated to {3}. Please keep a note of this time change and plan your availability accordingly.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+All the best.]]>
+</VendoremailForUpdateAuctionStartUpdate>
+
+<VendorsmsForUpdateAuctionStartUpdate>
+<![CDATA[Dear {0} {1},
+<br/><br/>
+Negotiations for the requirement {2} has been updated to {3} . 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you,
+Team-PRM360.]]>
+</VendorsmsForUpdateAuctionStartUpdate>
+  
+  
+  
+  
+<CustomeremailForEndNegotiation>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations!
+<br/><br/>
+The Negotiation process for {2} is now completed {3} is the least bider with the value {4} .
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{6}">View Requirement</a>.
+<br/><br/>
+Your savings through PRM360 : {5}]]>
+</CustomeremailForEndNegotiation> 
+
+<CustomersmsForEndNegotiation>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations!
+<br/><br/>
+you procurement process {2} is now completed {3} is the least bider with the value {4} .
+<br/><br/>
+Your savings through PRM360 : {5}
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{6}.
+<br/><br/>
+Team-PRM360.]]>
+</CustomersmsForEndNegotiation>
+  
+  
+  
+  
+<Vendor1emailForEndNegotiation>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations!
+<br/><br/>
+You have closed at the best position to get the oppurtunity to grab the order for requirement {2}.
+<br/><br/>
+Your price is : {3} . Customer would be reaching out you shortly.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{4}">View Requirement</a>.
+<br/><br/>
+All the best.]]>
+</Vendor1emailForEndNegotiation> 
+
+<Vendor1smsForEndNegotiation>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations!
+<br/><br/>
+You have closed at the best position to get the oppurtunity to grab the order for requirement {2} .
+<br/><br/>
+Your price is : {3} . Customer would be reaching out you shortly.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{4}.
+<br/><br/>
+All the best
+<br/><br/>
+Team-PRM360.]]>
+</Vendor1smsForEndNegotiation>
+  
+  
+  
+  
+  
+  
+<VendoremailForEndNegotiation>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for participating in the e-negotiations. 
+<br/><br/>
+We hope you have had an pleasant experience with the system. 
+<br/><br/>
+Looking forward for many more leads from the system. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{3}">View Requirement</a>.
+<br/><br/>
+All the best.]]>
+</VendoremailForEndNegotiation> 
+
+<VendorsmsForEndNegotiation>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for participating in the e-negotiations.
+<br/><br/>
+We hope you have had an pleasant experience with the system. 
+<br/><br/>
+Looking forward for many more leads from the system. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{3}.
+<br/><br/>
+All the best.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</VendorsmsForEndNegotiation>
+    
+    
+    
+    
+    
+    
+  
+
+<VendoremailForRemoval>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Oops..! We regret to inform you that something went wrong at the customer end.
+<br/><br/>
+The requirement {2} has been deleted by the customer. 
+<br/><br/>
+Kindly ignore the requirement {2}.]]>
+</VendoremailForRemoval>
+<VendorsmsForRemoval>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Oops..! We regret to inform you that something went wrong at the customer end. 
+<br/>
+The requirement {2} has been deleted by the customer.
+<br/><br/>
+Kindly ignore the requirement {2}. 
+<br/><br/>
+Team-PRM360.]]>
+</VendorsmsForRemoval>
+     
+<DeleteRequirementemail>
+<![CDATA[
+Hi {0} {1},
+<br/><br/>
+Oops..! We regret to inform you that something went wrong at the customer end.
+<br/><br/>
+The requirement {2} has been deleted by the customer. 
+<br/><br/>
+Kindly ignore the requirement {2}.]]>
+</DeleteRequirementemail>
+  
+<DeleteRequirementsms>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your requirement {2} has been deleted successfully. 
+<br/><br/>
+We have sent the message to the selected Vendors about the cancellation. 
+<br/><br/>
+We look forward for assisting you in the next requirement. 
+<br/><br/>
+Team-PRM360.]]>
+</DeleteRequirementsms>
+  
+<DeleteRequirementemailCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your requirement {2} has been deleted successfully. 
+<br/><br/>
+We have sent the message to the selected Vendors about the cancellation. 
+<br/><br/>
+We look forward for assisting you in the next requirement.]]>
+</DeleteRequirementemailCustomer>
+
+
+
+
+
+
+
+
+<POGeneratedSubj>
+<![CDATA[RQID: {0} - PO sent to the Vendor for Requirement ID {0} .]]>
+</POGeneratedSubj>
+  
+<POGeneratedemail>
+<![CDATA[Hi {0} {1},
+PO {3} for the requirement {2} has been successfully uploaded.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+We would be posting you on the progress from the Vendor.]]>
+</POGeneratedemail>
+
+<POGeneratedsms>
+<![CDATA[Hi {0} {1},
+PO {3} for the requirement {2} has been successfully uploaded.
+<br/>
+We would be posting you on the progress from the Vendor.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you.]]>
+</POGeneratedsms>
+
+<POSentVendSubj>
+<![CDATA[RQID: {0} - PO sent by Customer for Requirement ID {0}.]]>
+</POSentVendSubj>
+
+<POSentemailVendor>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+PO {3} for the requirement {2} has been successfully uploaded by the customer. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+Kindly review it and get in touch with customer if you need any clarrification. 
+<br/><br/>
+All the best.]]>
+</POSentemailVendor>
+
+<POSentsmsVendor>
+<![CDATA[
+Hi {0} {1},
+<br/><br/>
+PO {3} for the requirement {2} has been successfully uploaded by the customer. 
+<br/><br/>
+Kindly review it and get in touch with customer if you need any clarrification. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+All the best. Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</POSentsmsVendor>
+  
+  
+<POAcceptedCustSubj>
+<![CDATA[RQID: {0} - PO has been accepted by the Vendor for Requirement ID {0}.]]>
+</POAcceptedCustSubj>
+    
+<POAcceptedemailCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The PO {3} for the requirement {2} has been Acknowledged by the Vendor {4}.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</POAcceptedemailCustomer>
+
+<POAcceptedsmsCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The PO {3} for the requirement {2} has been Acknowledged by the Vendor {4}.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you. 
+Team-PRM360.]]>
+</POAcceptedsmsCustomer>
+
+
+
+  
+  
+<POAcceptedVendorSubj>
+<![CDATA[RQID: {0} - PO has been accepted for Requirement ID {0}.]]>
+</POAcceptedVendorSubj>
+
+<POAcceptedemailVendor>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for the acknowledgement of the PO {3} for the requirement {2}. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+Customer has been posted with the update. For any clarifications please login to PRM360.]]>
+</POAcceptedemailVendor>
+
+<POAcceptedsmsVendor>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for the acknowledgement of the PO {3} for the requirement {2}. 
+<br/><br/>
+Customer has been posted with the update. For any clarifications please login to PRM360.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you. 
+Team-PRM360.]]>
+</POAcceptedsmsVendor>
+  
+  
+  
+ 
+<MaterialDispatchedCustSubj>
+<![CDATA[RQID: {0} - Material Dispatched by the vendor for Requirement ID {0}.]]>
+</MaterialDispatchedCustSubj>
+  
+<MaterialDispatchedemailCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The material requested as per the PO {3} for the requirement {2} has been dispatched by the Vendor {4} and will reach out to you at the earliest. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</MaterialDispatchedemailCustomer>
+
+<MaterialDispatchedCustSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The material requested as per the PO {3} for the requirement {2} has been dispatched by the Vendor {4} and will reach out to you at the earliest. 
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you. 
+Team-PRM360.]]>
+</MaterialDispatchedCustSMS>
+
+
+
+<MaterialDispatchedVendorSubj>
+<![CDATA[RQID: {0} - Material Dispatched by the vendor for Requirement ID {0}.]]>
+</MaterialDispatchedVendorSubj>
+
+<MaterialDispatchedemailVendor>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations your material dispatchment status has been successfully updated. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+We would confirm the material receipt via SMS/email once the customer confirms the materisl receipt.]]>
+</MaterialDispatchedemailVendor>
+
+<MaterialDispatchedVendorSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Congratulations your material dispatchment status has been successfully updated. 
+<br/><br/>
+We would confirm the material receipt via SMS/email once the customer confirms the materisl receipt. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you. 
+Team-PRM360.]]>
+</MaterialDispatchedVendorSMS>
+
+
+
+
+
+
+<MaterialReceivedCustSubj>
+<![CDATA[RQID: {0} - Materials received by Customer for Requirement ID {0}.]]>
+</MaterialReceivedCustSubj>
+
+<MaterialReceivedemailCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for the confirmation of the Material Receipt for the PO {3} for the requirement {2}. 
+<br/><br/>
+Vendor has been posted with the update.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</MaterialReceivedemailCustomer>
+
+<MaterialReceivedSMSCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for the confirmation of the Material Receipt for the PO {3} for the requirement {2}. 
+<br/><br/>
+Vendor has been posted with the update.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</MaterialReceivedSMSCustomer>  
+  
+<MaterialReceivedVendSubj>
+<![CDATA[RQID: {0} - Materials received by Customer for Requirement ID {0}.]]>
+</MaterialReceivedVendSubj>
+  
+<MaterialReceivedemailVendor>
+<![CDATA[Hi {0} {1},
+Congratulations your material has been received and acknowledged by the customer.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</MaterialReceivedemailVendor>
+
+<MaterialReceivedSMSVendor>
+<![CDATA[Hi {0} {1},
+Congratulations your material has been received and acknowledged by the customer.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you.
+<br/><br/>
+Team-PRM360.]]>
+</MaterialReceivedSMSVendor>
+
+
+
+
+
+<PaymentProcessingCustSubj>
+<![CDATA[RQID: {0} - Payment being processed by Customer for Requirement ID {0}]]>
+</PaymentProcessingCustSubj>
+
+<PaymentProcessingemailCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for the processing the payment for the PO {3} for the requirement {2}.
+<br/><br/>
+We would keep you posted once the Vendor acknowledge the payment. 
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</PaymentProcessingemailCustomer>
+
+<PaymentProcessingSMSCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Thank you for the processing the payment for the PO {3} for the requirement {2}.
+<br/><br/>
+We would keep you posted once the Vendor acknowledge the payment. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</PaymentProcessingSMSCustomer>
+  
+  
+<PaymentProcessingVendSubj>
+<![CDATA[RQID: {0} - Payment being processed by Customer for Requirement ID {0}]]>
+</PaymentProcessingVendSubj>
+ 
+<PaymentProcessingemailVendor>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your payment for the PO {3} for the requirement {2} has been successfully processed.
+<br/><br/>
+Kindly acknowledge the same by logging into PRM360.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.]]>
+</PaymentProcessingemailVendor>
+
+<PaymentProcessingSMSVendor>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Your payment for the PO {3} for the requirement {2} has been successfully processed.
+<br/><br/>
+Kindly acknowledge the same by logging into PRM360. 
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you.
+<br/><br/>
+Team-PRM360.]]>
+</PaymentProcessingSMSVendor>
+
+
+
+
+
+
+
+<PaymentAcknowledgedCustSubj>
+<![CDATA[RQID: {0} - Payment acknowledged by the vendor for Requirement ID {0}.]]>
+</PaymentAcknowledgedCustSubj>
+
+<PaymentAcknowledgedemailCustomer>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Vendor {4} has acknowledged the payment receipt for the PO {3} for the requirement {2}.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</PaymentAcknowledgedemailCustomer>
+
+<PaymentAcknowledgedSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+Vendor {4} has acknowledged the payment receipt for the PO {3} for the requirement {2}.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</PaymentAcknowledgedSMS>
+  
+  
+<!--<PaymentReleasedemailVendSubj>
+<![CDATA[Payment Released by Customer for Requirement ID {0}]]>
+</PaymentReleasedemailVendSubj>
+    
+<PaymentReleasedemailVendor>
+<![CDATA[
+Hi {0} {1},
+Your payment for the PO (XXXX) for the requirement {2} has been successfully processed. 
+Kindly acknowledge the same by logging into PRM360. 
+Thank you. 
+]]>
+</PaymentReleasedemailVendor>
+
+<PaymentReleasedSMS>
+<![CDATA[Payment release by the customer for the requirement https://prm360.com/WEB/prm360.html#/view-requirement/{0}.]]>
+</PaymentReleasedSMS>
+-->
+
+
+
+
+<!--<POAcceptedSMS>
+<![CDATA[PO has been accepted by the vendor for the requirement https://prm360.com/WEB/prm360.html#/view-requirement/{0}.]]>
+</POAcceptedSMS>-->
+
+  
+  
+  
+<ForgotPasswordemail>
+<![CDATA[Hi {0} {1}, 
+<br/><br/>
+Please find the link to reset your password below: <br/><br/><a href="https://prm360.com/WEB/prm360.html#/resetpassword/{2}/{3}">Reset Password</a>]]>
+</ForgotPasswordemail>
+  
+<ForgotPasswordSMS>
+<![CDATA[Hi {0} {1}, 
+<br/><br/>
+Please find the link to reset your password below: <br/><br/>https://prm360.com/WEB/prm360.html#/resetpassword/{2}/{3}]]>
+</ForgotPasswordSMS>
+  
+  
+   
+<CustomerAddedemail>
+<![CDATA[Hi, 
+<br/><br/>
+A new customer has registered with PRM360.
+<br/><br/>
+Please find their details below:<br/><br/>Name: {0} {1} <br/><br/>Email Address: {2} <br/><br/>Phone Number: {3} ]]>
+</CustomerAddedemail>
+  
+<VendorAddedemail>
+<![CDATA[Hi, 
+<br/><br/>
+A new vendor has registered with PRM360. 
+<br/><br/>
+Please find their details below:<br/><br/>Name: {0} {1} <br/><br/>Email Address: {2} <br/><br/>Phone Number: {3} ]]>
+</VendorAddedemail>
+    
+  
+
+<SMSFooter>
+<![CDATA[]]>
+</SMSFooter>
+
+
+
+
+
+
+
+
+<UpdateExpDelDateCustomerSubj>
+<![CDATA[RQID: {0} - Delivery Date Updated for Requirement ID {0}]]>
+</UpdateExpDelDateCustomerSubj>
+
+<UpdateExpDelDateCustomerEmail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Delivery Date for Requirement ID {2} has been updated to {3} by the vendor.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</UpdateExpDelDateCustomerEmail>
+
+<UpdateExpDelDateCustomerSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Delivery Date for Requirement ID {2} has been updated to {3} by the vendor.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</UpdateExpDelDateCustomerSMS>
+
+
+<UpdateExpDelDateVendorSubj>
+<![CDATA[RQID: {0} - Delivery Date Updated for Requirement ID {0}]]>
+</UpdateExpDelDateVendorSubj>
+
+<UpdateExpDelDateVendorEmail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Delivery Date for Requirement ID {2} has been Successfully updated to {3} .
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.
+<br/><br/>
+For any clarifications please login to PRM360.]]>
+</UpdateExpDelDateVendorEmail>
+
+<UpdateExpDelDateVendorSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Delivery Date for Requirement ID {2} has been Successfully updated to {3} .
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+For any clarifications please login to PRM360.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</UpdateExpDelDateVendorSMS>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<UpdatePaymentDateCustomerSubj>
+<![CDATA[RQID: {0} - Payment Date Updated for Requirement ID {0}]]>
+</UpdatePaymentDateCustomerSubj>
+
+<UpdatePaymentDateCustomerEmail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Payment Date for Requirement ID {2} has been Successfully updated to {3} .
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.]]>
+</UpdatePaymentDateCustomerEmail>
+
+<UpdatePaymentDateCustomerSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Payment Date for Requirement ID {2} has been Successfully updated to {3} .
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</UpdatePaymentDateCustomerSMS>
+
+
+<UpdatePaymentDateVendorSubj>
+<![CDATA[RQID: {0} - Payment Date Updated for Requirement ID {0}]]>
+</UpdatePaymentDateVendorSubj>
+
+<UpdatePaymentDateVendorEmail>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Payment Date for Requirement ID {2} has been updated to {3} by the Customer.
+<br/><br/>
+<a href="https://prm360.com/WEB/prm360.html#/view-requirement/{2}">View Requirement</a>.]]>
+</UpdatePaymentDateVendorEmail>
+
+<UpdatePaymentDateVendorSMS>
+<![CDATA[Hi {0} {1},
+<br/><br/>
+The Payment Date for Requirement ID {2} has been updated to {3} by the Customer.
+<br/><br/>
+You can track the requirement through https://prm360.com/WEB/prm360.html#/view-requirement/{2}.
+<br/><br/>
+Thank you. 
+<br/><br/>
+Team-PRM360.]]>
+</UpdatePaymentDateVendorSMS>
+
+
+
+
+<SaveRequirementTelegramsms>
+<![CDATA[
+<br/>
+Company Name : {0}
+<br/>
+User Name : {1} {2}
+<br/>
+Title : {3}
+<br/>
+Desc : {4}
+<br/>
+<b>Quotation Freez Time : {8}</b>
+<br/>
+Payment terms : {5}
+<br/>
+Budget : {6}
+<br/>
+Delevery : {7}
+]]>
+</SaveRequirementTelegramsms>
+  
+<QuotationUploadTelegramsms>
+<![CDATA[
+<br/>
+Company Name : {0}
+<br/>
+User Name : {1} {2}
+<br/>
+Title : {3}
+<br/>
+Desc : {4}
+<br/>
+Amount : {5}
+<br/>
+Tax : {6}
+]]>
+</QuotationUploadTelegramsms>
+  
+<UpdateStartTimeTelegramsms>
+<![CDATA[
+<br/>
+Company Name : {0}
+<br/>
+User Name : {1} {2}
+<br/>
+Title : {3}
+<br/>
+Desc : {4}
+<br/>
+Start Time : {5}
+]]>
+</UpdateStartTimeTelegramsms>
+  
+<EndNegotiationTelegramsms>
+<![CDATA[
+<br/>
+Savings : {5}
+<br/>
+Company Name : {0}
+<br/>
+User Name : {1} {2}
+<br/>
+Title : {3}
+<br/>
+Desc : {4}
+]]>
+</EndNegotiationTelegramsms>
+
+</EmailTemplates>
+
+

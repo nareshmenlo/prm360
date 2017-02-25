@@ -1,0 +1,85 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+    <aside id="chat" data-ng-include="'template/chat.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+    <section id="content">
+        <div class="container" data-ng-controller="POCtrl">
+            <div class="block-header">
+                <h2>{{auctionItem.title}}</h2> 
+            </div>
+            <form ng-submit="meterialDispatchmentForm.$valid && postRequest()" class="meterialDispatchmentForm" name="meterialDispatchmentForm" novalidate>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Meterial Dispatchment Details</h2>
+                    </div>
+                    <div class="card-body card-padding">
+                        <div class="row">
+
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line">
+                                    <input type="text" ng-model="formRequest.dispatchedFrom" id="dispatchedFrom" name="dispatchedFrom" class="form-control" required>
+                                    <label class="fg-label">Dispatched From</label>
+                                </div>
+                                <div ng-show="meterialDispatchmentForm.$submitted || meterialDispatchmentForm.dispatchedFrom.$touched">
+                                    <div class="help-block error logininput" ng-show="meterialDispatchmentForm.dispatchedFrom.$error.required">Please enter Dispatched From</div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true}">
+                                    <input type="text" ng-model="formRequest.dispatchedMode" required name="dispatchedMode" id="dispatchedMode" class="form-control fg-input">
+                                    <label class="fg-label">Dispatched Mode</label>
+                                </div>
+                                <div ng-show="meterialDispatchmentForm.$submitted || meterialDispatchmentForm.dispatchedMode.$touched">
+                                    <div class="help-block error logininput" ng-show="meterialDispatchmentForm.dispatchedMode.$error.required">Please enter Meterial Dispatched Mode</div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line">
+                                    <input type="text" ng-model="formRequest.dispatchedThrough" id="dispatchedThrough" name="dispatchedThrough" class="form-control" required>
+                                    <label class="fg-label">Dispatched Through</label>
+                                </div>
+                                <div ng-show="meterialDispatchmentForm.$submitted || meterialDispatchmentForm.dispatchedThrough.$touched">
+                                    <div class="help-block error logininput" ng-show="meterialDispatchmentForm.dispatchedThrough.$error.required">Please enter Dispatched Through</div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line" ng-class="{'fg-toggled': isEdit===true || !meterialDispatchmentForm.expectedDelivery.$error.required}">
+
+                                    <input datetime-picker type="text" ng-model="formRequest.expectedDelivery" name="expectedDelivery" id="expectedDelivery" date-format="dd-MM-yyyy" date-only class="form-control fg-input" required datetime-picker date-format="dd-MM-yyyy" date-only>
+                                    <label class="fg-label">Expected Delivery Date</label>
+                                </div>
+                                <div ng-show="meterialDispatchmentForm.$submitted || meterialDispatchmentForm.expectedDelivery.$touched">
+                                    <div class="help-block error logininput" ng-show="meterialDispatchmentForm.expectedDelivery.$error.required">Please enter Expected Delivery Date</div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group fg-float col-sm-6 m-b-30">
+                                <div class="fg-line">
+                                    <input type="text" ng-model="formRequest.comments" id="comments" name="comments" class="form-control" required>
+                                    <label class="fg-label">Comments</label>
+                                </div>
+                                <div ng-show="meterialDispatchmentForm.$submitted || meterialDispatchmentForm.comments.$touched">
+                                    <div class="help-block error logininput" ng-show="meterialDispatchmentForm.comments.$error.required">Please enter comments</div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <button type="submit" class="btn btn-primary btn-file m-r-10">Dispatch Meterial</button>
+                </div>
+            </form>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>

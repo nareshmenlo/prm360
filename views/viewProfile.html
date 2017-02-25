@@ -1,0 +1,152 @@
+<header id="header"  data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+	<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+    <aside id="chat" data-ng-include="'template/chat.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+    <section id="content">
+        <div class="container" data-ng-controller="viewprofileCtrl">
+            <div class="vendorviewprofile card">
+                <div class="card-header">
+                    <h4 style="text-align:center;"><strong>VENDOR INFORMATION</strong></h4>			
+                </div>
+    	        <div class="card-body card-padding">
+    	        	<div class="pmbb-header">
+    			        <h4><i class="zmdi zmdi-account m-r-5"></i>Account Information</h4>
+    			    </div>
+    			    <div class="pmbb-body p-l-30" id="generatePDFHTMl">
+    			    <div id="editor" class="bypass"></div>
+    			            <dl class="dl-horizontal">
+    			                <dt>Company Name</dt>
+    			                <dd>{{ userObj.companyName }}</dd>
+    			            </dl> 
+    			            <dl class="dl-horizontal">
+    			                <dt>Category</dt>
+    			                <dd>{{ userObj.category }}</dd>
+    			            </dl>
+                        <dl ng-if="subcategories" class="dl-horizontal">
+                            <dt>Sub Categories</dt>
+                            <dd>{{subcategories}}</dd>
+                        </dl>
+    			            <dl class="dl-horizontal">
+    			                <dt>Score</dt>
+    			                <dd>{{ userObj.registrationScore }}</dd>
+    			            </dl> 
+    			            <dl class="dl-horizontal">
+    			                <dt>Role</dt>
+    			                <dd>{{ userObj.role }}</dd>
+    			            </dl> 
+                            <dl class="dl-horizontal">
+                                <dt>Rating</dt>
+                                <dd><input-stars max="5" ng-model="userObj.rating" readonly></input-stars></dd>
+                            </dl>          
+    			    </div>
+
+                    
+    	     
+    	        	<div class="pmbb-header">
+    			        <h4><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h4>
+    			    </div>
+    			    <div class="pmbb-body p-l-30" id="generatePDFHTMl">
+    			    <div id="editor" class="bypass"></div>
+    			            <dl class="dl-horizontal">
+    			                <dt>First Name</dt>
+    			                <dd>{{ userObj.firstName }}</dd>
+    			            </dl> 
+    			            <dl class="dl-horizontal">
+    			                <dt>Last Name</dt>
+    			                <dd>{{ userObj.lastName }}</dd>
+    			            </dl>            
+    			    </div>
+
+    			    <div ng-show = "false" class="pmb-block">
+                        <div class="pmbb-header">
+                            <h4><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h4>
+                        </div>
+                        <div class="pmbb-body p-l-30">
+                            <div class="pmbb-view" style="overflow-wrap: break-word;">
+                                <dl class="dl-horizontal">
+                                    <dt>Mobile Phone</dt>
+                                    <dd>{{ userObj.phoneNum }}</dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                    <dt>Email Address</dt>
+                                    <dd>{{ userObj.email }}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pmbb-header">
+                        <h4><i class="zmdi zmdi-info m-r-5"></i> Professional Information</h4>
+                    </div>
+                    <div class="pmbb-body p-l-30">
+                        <div class="pmbb-view" style="overflow-wrap: break-word;">
+                            <dl ng-if="userObj.aboutUs" class="dl-horizontal">
+                                <dt>About Us</dt>
+                                <dd>{{ userObj.aboutUs }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.directors" class="dl-horizontal">
+                                <dt>Directors/ Propreitor</dt>
+                                <dd>{{ userObj.directors }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.address" class="dl-horizontal">
+                                <dt>Address</dt>
+                                <dd>{{ userObj.address }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.logoURL" class="dl-horizontal">
+                                <dt>Office/Store Image</dt>
+                                <dd><img style="width: 80px;height: 80px;" class="text-center otplogo" ng-show="userObj.logoURL!= null" src="{{ userObj.logoURL }}" ></dd>
+                            </dl>
+                             <dl ng-if="userObj.establishedDate!= '31/12/9999'" class="dl-horizontal">
+                                <dt>Established Date</dt>
+                                <!-- <dd>{{userDetails.establishedDate | ctime | date:'medium'}}</dd> -->
+                                <dd>{{userObj.establishedDate}}</dd>
+                            </dl>
+                            <dl ng-if="userObj.achievements" class="dl-horizontal">
+                                <dt>Achievements</dt>
+                                <dd>{{ userObj.achievements }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.assocWithOEM" class="dl-horizontal">
+                                <dt>Associated With OEM</dt>
+                                <dd>{{ userObj.assocWithOEM ? 'Yes' : 'No' }}</dd>               
+                            </dl>
+                            <dl class="dl-horizontal" ng-if="userObj.assocWithOEM">
+                                <dt>Associated With OEM File</dt>
+                                <dd><a target="_blank" ng-show="userObj.assocWithOEMFileName && userObj.assocWithOEMFileName!='' && userObj.assocWithOEMFileName!= null" href="{{ userObj.assocWithOEMFileName}}">Link</a></dd>
+                            </dl>
+                            <dl ng-if="userObj.oemCompanyName" class="dl-horizontal">
+                                <dt>OEM Company Name</dt>
+                                <dd>{{ userObj.oemCompanyName }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.oemKnownSince" class="dl-horizontal">
+                                <dt>OEM Known Since</dt>
+                                <dd>{{ userObj.oemKnownSince }}</dd>
+                            </dl>
+                             <dl ng-if="userObj.products" class="dl-horizontal">
+                                <dt>Products</dt>
+                                <dd>{{ userObj.products }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.clients" class="dl-horizontal">
+                                <dt>Clients</dt>
+                                <dd>{{ userObj.clients }}</dd>
+                            </dl>
+                            <dl ng-if="userObj.responseTime" class="dl-horizontal">
+                                <dt>Response Time</dt>
+                                <dd>{{ userObj.responseTime }}</dd>
+                            </dl>
+
+                            <dl ng-if="userObj.workingHours" class="dl-horizontal">
+                                <dt>Working Hours</dt>
+                                <dd>{{ userObj.workingHours }}</dd>
+                            </dl>
+
+                            <dl ng-if="userObj.strengths" class="dl-horizontal">
+                                <dt>Core Business Strength</dt>
+                                <dd>{{ userObj.strengths }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+    	        </div>
+           	</div>
+        </div>
+     </section>
+</section>
+</div>

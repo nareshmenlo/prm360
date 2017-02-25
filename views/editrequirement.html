@@ -1,0 +1,313 @@
+<div class="container" data-ng-controller="editFormCtrl">
+    <div class="block-header">
+        <h2>Edit Requirement</h2>
+    </div>
+    <form ng-submit="requirementForm.$valid && postRequest()" class="requirementForm" name="requirementForm" novalidate>
+        <div class="card">
+            <div class="card-header">
+                <h2>Requirement Introduction <small>Please detail the specifications of your requirement here.</small></h2>
+            </div>
+            <div class="card-body card-padding">
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field fg-toggled">
+                        <input ng-model="formRequest.title" id="title" name="title" type="text" class="form-control fg-input" required>
+                        <label class="fg-label" for="Title">Title</label>
+                    </div>
+                    <div ng-show="requirementForm.$submitted || requirementForm.title.$touched">
+                        <div class="help-block error logininput" ng-show="requirementForm.title.$error.required">Please enter Title</div>
+                    </div>
+                </div>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field fg-toggled">
+                        <textarea ng-model="formRequest.description" id="description" name="description" rows="3" class="form-control fg-input" required></textarea>
+                        <label class="fg-label" for="Description">Description</label>
+                    </div>
+                    <div ng-show="requirementForm.$submitted || requirementForm.description.$touched">
+                        <div class="help-block error logininput" ng-show="requirementForm.description.$error.required">Please enter Description</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Requirement Details</h2>
+            </div>
+
+            <div class="card-body card-padding">
+                <div class="row">
+                    <div class="form-group col-sm-6 m-b-30 fg-float">
+                        <div class="fg-line input-field fg-toggled">
+							<select ng-model="formRequest.category" class="form-control" ng-change="changeCategory()" ng-options="category for category in categories" required></select>
+							<label class="selectfield fg-label" for="category">Select a category...</label>
+						</div>
+						<div ng-show="requirementForm.$submitted || requirementForm.category.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.category.$error.required">Please select Category</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 m-b-30 fg-float">	
+						<div class="fg-line input-field fg-toggled">					
+							<select ng-model="formRequest.urgency" class="urgency form-control" id="urgency" required>
+								<option value="High">High</option>
+								<option value="Medium">Medium</option>
+								<option value="Low">Low</option>
+							</select>
+							<label class="selectfield fg-label" for="category">Select an urgency...</label>
+						</div>
+                        <div ng-show="requirementForm.$submitted || requirementForm.urgency.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.urgency.$error.required">Please select Urgency</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group fg-float col-sm-6 m-b-30">
+                        <div class="fg-line input-field fg-toggled">
+                            <input type="text" ng-model="formRequest.budget" id="budget" name="budget" class="form-control" required>
+                            <label class="fg-label">Budget</label>
+                        </div>
+                        <div ng-show="requirementForm.$submitted || requirementForm.budget.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.budget.$error.required">Please enter Budget</div>
+                        </div>
+                    </div>
+                    <div class="form-group fg-float col-sm-6 m-b-30">
+                        <div class="fg-line input-field fg-toggled">
+                            <input type="text" ng-model="formRequest.deliveryLocation" required name="deliveryLocation" id="deliveryLocation" class="form-control fg-input">
+                            <label class="fg-label">Delivery Location</label>
+                        </div>
+                        <div ng-show="requirementForm.$submitted || requirementForm.deliveryLocation.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.deliveryLocation.$error.required">Please enter Delivery Location</div>
+                        </div>
+                    </div>
+                    <div class="form-group fg-float col-sm-6 m-b-30">
+                        <div class="fg-line input-field fg-toggled">
+                            <input type="text" ng-model="formRequest.deliveryTime" required name="deliveryTime" id="deliveryTime" class="form-control fg-input">
+                            <label class="fg-label">Delivery Time</label>
+                        </div>
+                        <div ng-show="requirementForm.$submitted || requirementForm.deliveryTime.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.deliveryTime.$error.required">Please enter Delivery Time</div>
+                        </div>
+                    </div>
+                    <div class="form-group fg-float col-sm-6 m-b-30">
+                        <div class="fg-line input-field fg-toggled">
+                            <input type="number" ng-model="formRequest.taxes" class="form-control fg-input" name="taxes" id="taxes" required>
+                            <label class="fg-label">Taxes (in %)</label>
+                        </div>
+                        <div ng-show="requirementForm.$submitted || requirementForm.taxes.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.taxes.$error.required">Please enter Taxes</div>
+                        </div>
+                    </div>
+                    <div class="form-group fg-float col-sm-6 m-b-30">
+                        <div class="fg-line input-field fg-toggled">
+                           <!-- <input type="hidden" ng-model="formRequest.attachementName" name="attachementName" id="attachementName"/> -->
+
+                            <input type="number" ng-model="formRequest.paymentTerms" name="paymentTerms" id="paymentTerms" class="form-control fg-input"
+                            required>
+                            <label class="fg-label">Payment Terms (in days)</label>
+                        </div>
+                        <div ng-show="requirementForm.$submitted || requirementForm.paymentTerms.$touched">
+                            <div class="help-block error logininput" ng-show="requirementForm.paymentTerms.$error.required">Please enter Payment Terms</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-6 m-b-30">
+                        <div class="toggle-switch">
+                            <input id="freightcharges" type="checkbox" hidden="hidden" />
+                            <label for="freightcharges" class="ts-helper"></label>
+                            <label for="freightcharges" class="fg-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Include Freight Charges?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Requirement Attachments 11<small>Please attach any documents pertaining to your requirement.</small></h2>
+            </div>
+
+            <div class="card-body card-padding">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <span class="btn btn-primary btn-file m-r-10">
+                            <span class="fileinput-new">Select file</span>
+                            <span class="fileinput-exists">Change</span>
+<!--                             <input type="file" ng-file-select="onFileSelect($files)" />
+ -->
+                            <input type="file" id="attachement" name="attachement" ng-file-select="onFileSelect($files)" />
+
+                             </span>
+                            <span class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                        </div>
+                         <div ng-show="requirementAttachement">
+                            <div class="help-block error logininput" ng-show="requirementAttachement">Please attache requirement file</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                Requirement Attachments: <strong class="float-right"><a target="_blank "href="{{ formRequest.attachmentName}}">Link</a></strong>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Vendor Details</h2>
+            </div>
+
+            <div class="card-body card-padding">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <div class="col-md-4 col-md-offset-1 addNewVendor col-xs-12">
+                            <span class="btn btn-primary btn-file" ng-click="selectVendorShow=false;addVendorShow=true;">
+                            <span class="fileinput-new">Add New Vendor</span>
+                            </span>
+                        </div>
+                        <div class="col-md-2 col-xs-12 text-center ">
+                            OR
+                        </div>
+                        <div class="col-md-3 col-xs-12 selectVendors">
+                            <span class="btn btn-primary btn-file" ng-click="addVendorShow=false;selectVendorShow=true;">
+                            <span class="fileinput-new">Select Existing Vendors</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row top-buffer">
+                    <div ng-show="addVendorShow">
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="col-md-6 pl0">
+                                <div class="fg-line">
+                                    <input type="text" ng-model="newVendor.firstName" class="form-control fg-input">
+                                    <label class="fg-label">Vendor First Name</label>
+                                </div>
+                                <div ng-show="addVendorShow && firstvalidation">
+                                    <div class="help-block error logininput" ng-show="addVendorShow && firstvalidation">Please enter Vendor First Name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pl0 pr0">
+                                <div class="fg-line">
+                                    <input type="text" ng-model="newVendor.lastName" class="form-control fg-input">
+                                    <label class="fg-label">Vendor Last Name</label>
+                                </div>
+                                <div ng-show="addVendorShow && lastvalidation">
+                                    <div class="help-block error logininput" ng-show="addVendorShow && lastvalidation">Please enter Vendor Last Name</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.contactNum" class="form-control fg-input">
+                                <label class="fg-label">Contact No.</label>
+                            </div>
+                            <div ng-show="addVendorShow && contactvalidation">
+                                <div class="help-block error logininput" ng-show="addVendorShow && contactvalidation">Please enter a valid Contact No.</div>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.email" class="form-control fg-input">
+                                <label class="fg-label">Email Address</label>
+                            </div>
+                            <div ng-show="(addVendorShow && emailvalidation) || (addVendorShow && emailregxvalidation)">
+                                <div class="help-block error logininput" ng-show="addVendorShow && emailvalidation">Please enter Email Address</div>
+                                <div class="help-block error logininput" ng-show="addVendorShow && emailregxvalidation">Please enter a valid Email Address</div>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.knownSince" class="form-control fg-input">
+                                <label class="fg-label">Vendor known since:</label>
+                            </div>
+                        </div>
+                        <div class=" form-group fg-float col-sm-6 m-b-30" style="margin-bottom: 0px !important;margin-top: -7px;">
+                            <!--<select disabled chosen multiple data-placeholder="Vendor Specialisation" ng-model="formRequest.category" class="w-100">
+                                <option value="IT Infrastructure">IT Infrastructure</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                                <option value="Construction">Construction</option>
+                                <option value="Catering">Catering</option>
+                                <option value="Photography">Photography</option>
+                                <option value="Software Development">Software Development</option>
+                                <option value="Advertising">Advertising</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Others">Others</option>
+                            </select>-->
+                            <select disabled ng-model="formRequest.category" class="w-100" ng-options="category for category in categories"></select>
+                            <div ng-show="addVendorShow && categoryvalidation">
+                                <div class="help-block error logininput" ng-show="addVendorShow && categoryvalidation">Please enter Vendor Category</div>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.panno" class="form-control fg-input">
+                                <label class="fg-label">Vendor PAN No.</label>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.serviceTaxNo" class="form-control fg-input">
+                                <label class="fg-label">Service Tax No.</label>
+                            </div>
+                        </div>
+                        <div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.vatNum" class="form-control fg-input">
+                                <label class="fg-label">VAT No.</label>
+                            </div>
+                        </div>
+                        <!--<div class="form-group fg-float col-sm-6 m-b-30">
+                            <div class="fg-line">
+                                <input type="text" ng-model="newVendor.deliveryTime" class="form-control fg-input">
+                                <label class="fg-label">Delivery Time</label>
+                            </div>
+                        </div>-->
+                        <div class="col-xs-12 text-center">
+                            <span class="btn btn-primary btn-file m-r-10" ng-click="addVendor();">
+                            <span class="fileinput-exists">Add</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 text-center" ng-show="selectVendorShow">
+                        <div class="col-md-12 z-depth-1 vendorsDivA">
+                            <ul ng-if="vendorsLoaded" ng-repeat="vendor in Vendors" class="main-menu vendorsLi">
+                                <li>
+                                    <label class="checkbox checkbox-inline m-r-20">
+                                        <input type="checkbox" ng-click="selectForA(vendor)" value="{{vendor.vendorID}}">
+                                        <i class="input-helper"></i>
+                                        <span>{{vendor.vendorName}}</span><span class="pull-right"></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 text-center vendorarrows" ng-show="selectVendorShow">
+                        <span class="btn btn-primary btn-file m-r-10" ng-click="BtoA();">
+                            <span class="fileinput-new">&lt;&lt;</span>
+                        </span>
+                        <span class="btn btn-primary btn-file m-r-10" ng-click="AtoB();">
+                            <span class="fileinput-new">&gt;&gt;</span>
+                        </span>
+                    </div>
+                    <div class="col-md-5 z-depth-1 vendorsDivB pull-right" ng-show="selectVendorShow">
+                        <ul ng-repeat="vendor in formRequest.auctionVendors" class="main-menu vendorBUl vendorsLi">
+                            <li>
+                                <label class="checkbox checkbox-inline m-r-20">
+                                    <input type="checkbox" ng-click="selectForB(vendor)" value="{{vendor.vendorID}}">
+                                    <i class="input-helper"></i>
+                                    <span>{{vendor.vendorName}}</span><span class="pull-right"></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 text-center">
+            <button type="submit" ng-disabled="formRequest.auctionVendors.length == 0" class="btn btn-primary btn-file m-r-10">Post Request</button>
+            <div class="col-xs-12 text-center">
+                <h2><small class="text-danger">Note: Pressing this button will send an invite to all the vendors selected above.</small></h2>
+            </div>
+        </div>
+    </form>
+</div>

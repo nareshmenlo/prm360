@@ -1,0 +1,669 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+<section id="main">
+    <aside id="sidebar" data-ng-include="'template/sidebar-left.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.left === true }"></aside>
+    <aside id="chat" data-ng-include="'template/chat.html'" data-ng-class="{ 'toggled': mactrl.sidebarToggle.right === true }"></aside>
+    <section id="content">
+        <div class="container m-p-0" data-ng-controller="itemCtrl">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Negotiation Details</h2>			
+                </div>
+                <div class="card-body card-padding">
+                    <div class="table-responsive">
+                        <div class="col-md-12 m-b-20 padding0">
+                            <div class="col-md-6 padding0">
+                                <h4><b>Title:</b> {{auctionItem.title}}</h4>
+                                <h4 ng-show="auctionItem.status == 'UNCONFIRMED' || auctionItem.status == 'NOTSTARTED'"><b>Quotation Freez Time:</b> {{auctionItem.quotationFreezTime}} (IST).</h4>
+                                <h4 ng-show="!userIsOwner" ><b>Posted By:</b> {{auctionItem.customerCompanyName}}</h4>
+
+                                <h4><b>Category:</b> {{auctionItem.category[0]}}</h4>
+                                <h4><b>Subcategories:</b> {{auctionItem.subcategories}}</h4>
+                                <div ng-show="userIsOwner && auctionItem.status == 'CLOSED'">
+                                    <div>Rate the vendor here:<input-stars max="5" ng-model="ratingForVendor"  on-star-click="rateVendor(auctionItem.selectedVendorID)"></input-stars></div>
+                                </div>
+                                <div ng-show="!userIsOwner && auctionItem.status == 'CLOSED'">
+                                    <div>Rate the vendor here:<input-stars max="5" ng-model="ratingForCustomer"  on-star-click="rateCustomer()"></input-stars></div>
+                                </div>
+                                <div ng-show="!userIsOwner">
+                                    <h4><b>Uploaded Quotation:</b>
+                                        <!--a target="_blank" href="{{quotationUrl}}" ng-show="quotationUrl!=''">View Quotation</a-->
+										<a target="_blank" href="FileDownload.aspx?attachid={{quotationUrl}}&sessionid={{sessionid}}" ng-show="quotationUrl!=''">View Quotation</a> 
+									</h4>
+                                    <h4 ng-show="revquotationUrl!=''">
+                                        <b>Revised Quotation:</b>
+                                        <!--a target="_blank" href="{{revquotationUrl}}" ng-show="quotationUrl!=''">View Quotation</a-->
+                                        <a target="_blank" href="FileDownload.aspx?attachid={{revquotationUrl}}&sessionid={{sessionid}}" ng-show="revquotationUrl!=''">View Revised Quotation</a>
+                                    </h4>
+                                    <h4><b>Your Quotation Price (incl. all Taxes):</b> {{((vendorInitialPrice==0)?"N/A":vendorInitialPrice )}}</h4>
+
+                                    <h4 ng-show="auctionStarted &&  !userIsOwner  && !isDeleted && vendorQuotedPrice!=0"><b>Min Bid Amount To be Reduce:</b> {{auctionItem.minBidAmount}}</h4>
+
+                                    <h4><b>Taxes: <span class="label label-primary">{{auctionItem.inclusiveTax ? 'Inclusive' : 'Exclusive'}}</span></b></h4>
+
+                                    
+                                    <h4>
+                                        <span><strong><a target="_blank" href="prm360.html#/bidhistory/{{vendorID}}/{{auctionItem.requirementID}}">Previous Bids</a></strong></span>
+                                    </h4>
+
+                                        <h4 ng-if="auctionStarted &&  !userIsOwner  && !isDeleted && vendorQuotedPrice==0"><b><font color="red"><span ng-bind="nonParticipatedMsg"></span>  </font></b></h4>
+                            </div>
+                                <h5 ng-show="auctionItem.attachmentName!=''"><a  target="_blank" href="FileDownload.aspx?attachid={{auctionItem.attachmentName}}&sessionid={{sessionid}}">Requirement Attachment</a></h5>
+                                <div class="text-left top-buffer col-md-4 fltleft padding0" ng-if="!auctionStarted && auctionItem.status != 'NOTSTARTED'">
+                                    <button class='btn btn-primary btn-sm' href='javascript:void(0);' ng-show="userIsOwner && !isDeleted" ng-click="editRequirement()">Edit Requirement</button>
+                                </div>
+                                <div id="auctiontimer1" ng-show="userIsOwner && auctionStarted" class="text-center row col-md-12 padding0">
+                                    <div class="text-center top-buffer col-md-4 fltleft col-xs-12">
+                                        <button ng-disabled="auctionItem.timeLeft <= 3 || auctionItem.isStopped || disableAddButton" class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="updateTime(60)">Add 60 seconds</button>
+                                    </div>
+                                    <div class="text-center top-buffer col-md-4 fltleft  col-xs-12">
+                                        <button ng-disabled="disableDecreaseButtons || auctionItem.isStopped" class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="updateTime(-60)">Reduce 60 seconds</button>
+                                    </div>
+                                    <div class="text-center top-buffer col-md-4 fltleft  col-xs-12 m-b-5">
+                                        <button ng-disabled="disableDecreaseButtons || auctionItem.isStopped" class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="stopBids()">Stop Bids</button>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6 padding0">
+
+                                <div ng-if="(auctionItem.status == 'PO Sent' || auctionItem.status == 'PO Accepted'|| auctionItem.status ==  'Material Dispatched') && auctionItem.selectedVendorID == customerID && auctionItem.customerID != customerID && auctionItem.superUserID != customerID">
+                                    <div class="col-md-7 form-group fg-float">
+                                        <div class="fg-line">
+                                            <h4>Delivery Date: </h4>
+                                            <input ng-model="updatedeliverydateparams.date" date-format="dd-MM-yyyy HH:mm" datetime-picker class="form-control" required />
+                                            <!--<label class="fg-label">Reason</label>-->
+                                        </div>
+                                    </div>
+                                    <div class="text-left top-buffer col-md-4 fltleft" ng-click="updatedeliverdate()">
+                                        <button class='btn btn-primary btn-sm' href='javascript:void(0);'>Update</button>
+                                    </div>
+                                </div>
+
+                                <div ng-if="(auctionItem.status == 'Material Received' || auctionItem.status == 'Payment Dispatched') && auctionItem.customerID == customerID && auctionItem.superUserID == customerID">
+                                    <div class="col-md-7 form-group fg-float">
+                                        <div class="fg-line">
+                                            <h4>Payment Date: </h4>
+                                            <input ng-model="updatepaymentdateparams.date" date-format="dd-MM-yyyy HH:mm" datetime-picker dateonly class="form-control" required />
+                                            <!--<label class="fg-label">Reason</label>-->
+                                        </div>
+                                    </div>
+                                    <div class="text-left top-buffer col-md-4 fltleft" ng-click="updatepaymentdate()">
+                                        <button class='btn btn-primary btn-sm' href='javascript:void(0);'>Update</button>
+                                    </div>
+                                </div>
+                                    
+                                <h4 class="text-right" ng-if="auctionItem.status == 'Negotiation Ended' && !isDeleted && (auctionItem.customerID == customerID || auctionItem.superUserID == customerID)" style="cursor: pointer; cursor: hand;"><b> <span ng-click="RestartNegotiation()" class="label label-primary"><i class="zmdi zmdi-refresh-sync"></i><span> Re-Start  (Negotiation Time 5 Min)</span></b></h4>
+
+                                    <h3 ng-if="auctionItem.status != 'NOTSTARTED' && auctionItem.status != 'UNCONFIRMED' && auctionItem.status != 'STARTED' && (auctionItem.customerID == customerID || auctionItem.superUserID == customerID || auctionItem.selectedVendorID == customerID)" class="text-right"> Status: {{auctionItem.status}}</h3>
+
+                                    <h3 ng-if="auctionItem.status != 'NOTSTARTED' && auctionItem.status != 'UNCONFIRMED' && auctionItem.status != 'STARTED' && (auctionItem.selectedVendorID != customerID) && auctionItem.customerID != customerID && auctionItem.superUserID != customerID && auctionItem.requirementID > 0" class="text-right"> Status: Negotiation Ended</h3>
+
+                                <h4 class="text-right" ng-if="auctionStarted && !isDeleted && auctionItem.status == 'STARTED'" style="cursor: pointer; cursor: hand;"><b> <span ng-click="recalculate()" class="label label-primary"><i class="zmdi zmdi-refresh-sync"></i> Refresh</span></b></input></h4>
+                                    <h3 ng-if="!userIsOwner  && !isDeleted" class="text-right">Price : <span ng-bind-html="auctionItem.minPrice | numToCurrency"></span></h3>
+
+                                    <h3 ng-show="auctionStarted &&  !userIsOwner  && !isDeleted" class="text-right">Rank : {{((vendorRank==0)?"N/A":vendorRank)}} </h3>
+                                    <div class="col-md-12 text-right padding0" ng-if="showTimer  && !isDeleted" id="timer">
+                                        <h4 ng-bind="timeLeftMessage"></h4>
+                                        <h2>
+                                            <timer countdown="auctionItem.timeLeft" ng-style="timerStyle" interval="1000">{{ddays}}:{{hhours}}:{{mminutes}}:{{sseconds}}</timer>
+                                        </h2>
+                                    </div>
+                                
+                                <div class="col-md-12 text-right padding0" ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.savings && auctionItem.status == 'STARTED'">
+                                    <h3 ng-style="savingsStyle"><strong>Savings So Far: <span ng-bind-html="auctionItem.savings | numToCurrency"></span></strong></h3>
+                                </div>
+
+                                <div class="col-md-12 text-right padding0" ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.savings && auctionItem.status != 'STARTED'">
+                                    <h3 ng-style="savingsStyle"><strong>Total Savings: <span ng-bind-html="auctionItem.savings | numToCurrency"></span></strong></h3>
+                                </div>
+
+                                    <div ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.status == 'Vendor Selected'" style="font-size:15px;" class="text-right">
+                                        <span ng-show="!showStatusDropDown"><b>{{errMsg}}</b></span><br />
+                                    </div>
+                                    <!-- <div class="form-group fg-float" ng-if="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.status == 'Negotiation Ended'">
+            <!-- <div class="fg-line input-field fg-toggled">
+                <select ng-model="formRequest.selectedVendor" name="vendor" class="form-control" ng-options="vendor as vendor.vendorName for vendor in auctionItem.auctionVendors" data-placeholder="Select a vendor"></select>
+                <label class="selectfield fg-label" for="vendor">Select a vendor</label>
+            <!-- </div>
+            <button class='btn btn-primary btn-sm' href='javascript:void(0);'
+                ng-click="selectVendor()">Select Vendor</button>
+        </div> -->
+                                    <!-- <div class="pull-right" style="padding-top:15px;"> -->
+                                    <div class="text-right">
+                                        <button ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.status == 'Vendor Selected'" class='btn btn-primary btn-sm' href='javascript:void(0);'
+                                                ng-click="generatePOforUser()">
+                                            Generate PO
+                                        </button>
+                                    </div>
+
+                                    <div class="text-right" ng-if="auctionItem.poLink && auctionItem.poLink != '' && (auctionItem.customerID == customerID || auctionItem.superUserID == customerID)">
+                                        <span><a href="FileDownload.aspx?attachid={{auctionItem.poLink}}&sessionid={{sessionid}}">Download PO</a></span><br />
+                                    </div>
+
+                                    <div class="text-right" ng-if="auctionItem.poLink && auctionItem.poLink != '' && auctionItem.status != 'PO Processing' && (auctionItem.selectedVendorID == customerID)">
+                                        <span><a href="FileDownload.aspx?attachid={{auctionItem.poLink}}&sessionid={{sessionid}}">Download PO</a></span><br />
+                                    </div>
+
+                                    <div class="text-right" style="clear: both;padding-top: 13px;" ng-show="auctionItem.status == 'PO Processing'  && !isDeleted && userIsOwner">
+                                        <button class='btn btn-primary btn-sm pull-right' style="margin-top: 7px;" ng-click="generatePOforUser()">Edit Purchase Order</button>
+                                        <button class='btn btn-primary btn-sm pull-right' style="margin-top: 7px;" ng-click="updateStatus('PO Sent')">Send PO to Vendor</button>
+
+                                    </div>
+                                    <div ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.status == 'Negotiation Ended'" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+                                        <!-- <div class="col-md-4"></div> -->
+                                        <div class="col-md-8 form-group fg-float">
+                                            <div class="fg-line">
+                                                <select class="form-control col-md-6 " name="vendor" ng-model="formRequest.selectedVendor" ng-options="vendor as vendor.vendorName for vendor in participatedVendors"></select>
+                                                <label class="fg-label" for="vendor">Select a vendor</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 form-group fg-float">
+                                            <div class="fg-line">
+                                                <input ng-model="formRequest.selectedVendor.reason" class="form-control" required />
+                                                <label class="fg-label">Reason</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 padding0">
+                                            <button class='btn btn-primary btn-sm pull-right' ng-click="selectVendor()">Select</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-right" style="clear: both;padding-top: 13px;" ng-show="(auctionItem.customerID != customerID && auctionItem.superUserID != customerID && auctionItem.selectedVendorID == customerID) && auctionItem.status == 'PO Sent'" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2 padding0">
+                                            <button class='btn btn-primary btn-sm pull-right' ng-click="updateStatus('PO Accepted')">Accept PO</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-right" style="clear: both;padding-top: 13px;" ng-show="(auctionItem.customerID != customerID && auctionItem.superUserID != customerID && auctionItem.selectedVendorID == customerID) && auctionItem.status == 'PO Accepted'" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2 padding0">
+                                            <button class='btn btn-primary btn-sm pull-right' ng-click="metrialDispatchmentForm()">Material Dispatchment Form</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-right" style="clear: both;padding-top: 13px;" ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.status == 'Material Dispatched'" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2 padding0">
+                                            <button class='btn btn-primary btn-sm pull-right' ng-click="updateStatus('Material Received')">Material Received</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-right" style="clear: both;padding-top: 13px;" ng-show="(auctionItem.customerID == customerID || auctionItem.superUserID == customerID) && auctionItem.status == 'Material Received'" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2 padding0">
+                                            <button class='btn btn-primary btn-sm pull-right' ng-click="paymentdetailsForm()">Payment Details</button>
+                                        </div>
+                                    </div>
+                                    <div class="text-right" style="clear: both;padding-top: 13px;" ng-show="(auctionItem.customerID != customerID && auctionItem.superUserID != customerID && auctionItem.selectedVendorID == customerID) && auctionItem.status == 'Payment Dispatched'" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+                                        <div class="col-md-4"></div>
+                                        <div class="col-md-2 padding0">
+                                            <button class='btn btn-primary btn-sm pull-right' ng-click="updateStatus('Payment Received')">Payment Received</button>
+                                        </div>
+                                    </div>
+                                    <!-- <div ng-show="showStatusDropDown  && !isDeleted" class="col-md-12 pull-right padding0" style="margin-top: 13px;">
+            <div class="col-md-4"></div>
+            <div class="col-md-6">
+                <select class="form-control col-md-6" ng-show="showStatusDropDown" ng-model="auctionItem.status" ng-options="item for item in options"></select>
+            </div>
+            <div class="col-md-2 padding0">
+                <button class='btn btn-primary btn-sm pull-right' ng-show="showStatusDropDown" ng-click="updateStatus()">Update</button>
+            </div>
+        </div> -->
+                                </div>
+
+                        </div>
+                        <table ng-show="userIsOwner" ng-table="tctrl.tableSorting" class="table table-striped table-vmiddle">
+                            <tr>
+                                <th data-title="'Vendor city'" sortable="'City'">
+                                    Company Name
+                                </th>
+                                <th data-title="'Vendor Name'" sortable="'Name'" class="vendorName">
+                                    Vendor Name
+                                </th>
+                                
+                                <th data-title="'Rank'" sortable="'Rank'">
+                                    Rank
+                                </th>
+                                <th ng-show="!auctionStarted" data-title="'Offer Price'" sortable="'OfferPrice'">
+                                    Quotation Price
+                                </th>
+                                <th ng-show="auctionStarted" data-title="'Offer Price'" sortable="'OfferPrice'">
+                                    Quotation Price
+                                </th>
+
+                                
+                                
+                                <th data-title="'View Quotations'">
+                                    View Quotations
+                                </th>
+                                <th ng-hide ="true" data-title="'Taxes (in %)'" sortable="'TaxPercent'">
+                                    Taxes (in %)
+                                </th>
+                                <th data-title="'Price (incl. all Taxes)'" sortable="'TotalPriceIncl'">
+                                    Current Price (incl. all Taxes)
+                                </th>
+                                <!--<th data-title="'Vendor Rating'" sortable="'Vendor Rating'">
+                                    Vendor Rating
+                                </th>-->
+                                <!--<th data-title="'Delete Vendor'" sortable="'Delete Vendor'" ng-if="auctionItem.status == 'NOTSTARTED'">
+                                    Delete Vendor
+                                </th>-->
+
+                                <th data-title="'Bid History'" sortable="'Bid History'">
+                                    Previous Bids
+                                </th>
+
+                                <th ng-hide="auctionItem.status == 'STARTED' || auctionItem.status == 'UNCONFIRMED' || auctionItem.status == 'NOTSTARTED'" data-title="'Rev Quotation'" sortable="'Rev Quotation'">
+                                    Rev.Quotation
+                                </th>
+
+                            </tr>
+                            <tr ng-repeat="auctionVendor in auctionItem.auctionVendors">
+                                <td data-title="'Vendor city'" sortable="'City'">
+                                    <!-- {{auctionVendor.companyName}} -->
+                                    <span><strong><a target="_blank" href="prm360.html#/viewprofile/{{auctionVendor.vendorID}}">{{auctionVendor.companyName}}</a></strong></span>
+                                </td>
+                                <td data-title="'Vendor Name'" sortable="'Name'" class="vendorName">
+                                    {{ auctionVendor.vendorName }}
+                                </td>
+                                
+                                <td data-title="'Rank'" sortable="'Rank'">
+                                    {{(auctionVendor.runningPrice==0)?'-':auctionVendor.rank}}
+                                </td>
+                                <td ng-show="!auctionStarted" data-title="'Offer Price'" sortable="'OfferPrice'" ng-bind-html= "auctionVendor.initialPrice | numToCurrency">
+                                    <!-- {{auctionVendor.initialPrice}} -->
+                                </td>
+                                <!-- <td ng-show="auctionStarted" data-title="'Offer Price'" sortable="'OfferPrice'" ng-bind-html= "auctionVendor.runningPrice | numToCurrency">
+                                </td> -->
+                                <td ng-show="auctionStarted" data-title="'Offer Price'" sortable="'OfferPrice'" ng-bind-html= "auctionVendor.initialPrice | numToCurrency">
+                                </td>
+                                
+
+                                
+                               
+                                								
+                                <td data-title="'View Quotations'">
+                                    <!--a target="_blank" href="{{auctionVendor.quotationUrl}}" ng-show="auctionVendor.quotationUrl!=''">View Quotation</a-->
+									<a target="_blank" href="FileDownload.aspx?attachid={{auctionVendor.quotationUrl}}&sessionid={{sessionid}}" ng-show="auctionVendor.quotationUrl!=''">View Quotation</a>
+                                </td>
+                                <td ng-hide ="true" data-title="'Taxes (in %)'" sortable="'TaxPercent'">
+                                    {{auctionVendor.taxes}}
+                                </td>
+                                <td data-title="'Price (incl. all Taxes)'" sortable="'TotalPriceIncl'" ng-bind-html= "auctionVendor.totalPriceIncl | numToCurrency">
+                                </td>
+                                <!--<td data-title="'Rate'" sortable="'Rate'">
+                                <input-stars max="5" ng-model="auctionVendor.rating" readonly></input-stars>
+                                </td>-->
+                                <!--<td data-title="'Delete Vendor'" sortable="'Delete Vendor'">
+                                    <button class='btn btn-primary btn-sm' ng-if="auctionItem.status == 'NOTSTARTED'" href='javascript:void(0);' ng-click="DeleteVendorFromAuction(auctionVendor.vendorID, auctionVendor.quotationUrl)">Delete Vendor</button> 
+                                </td>-->
+
+                                <td data-title="'Bid History'" sortable="'Bid History'">
+                                    <span><strong><a target="_blank" href="prm360.html#/bidhistory/{{auctionVendor.vendorID}}/{{auctionItem.requirementID}}">Previous Bids</a></strong></span>
+                                </td>
+
+                                <td ng-hide="auctionItem.status == 'STARTED' || auctionItem.status == 'UNCONFIRMED' || auctionItem.status == 'NOTSTARTED' || auctionVendor.revquotationUrl == '' || auctionVendor.revquotationUrl == null" data-title="'Rev Quotation'" sortable="'Rev Quotation'">
+                                    <a target="_blank" href="FileDownload.aspx?attachid={{auctionVendor.revquotationUrl}}&sessionid={{sessionid}}" ng-show="auctionVendor.quotationUrl!=''">View Rev Quotation</a>
+                                </td>
+
+                                <td ng-show="auctionItem.status != 'STARTED' && auctionItem.status != 'UNCONFIRMED' && auctionItem.status != 'NOTSTARTED' && (auctionVendor.revquotationUrl == '' || auctionVendor.revquotationUrl == null)" data-title="'Rev Quotation'" sortable="'Rev Quotation'">
+                                    Not Uploaded
+                                </td>
+
+                            </tr>
+                        </table>
+                        <div id="auctiontimer" ng-show="startBtns && !isDeleted" class="text-center col-md-12 padding0" style="margin-top:40px;">
+                            <div class="text-center top-buffer col-md-4 fltleft padding0">
+                                <div class="form-group fg-float col-sm-12 m-b-30">
+                                    <div class="fg-line fg-toggled">
+                                        <div moment-picker="startTime" format="DD-MM-YYYY HH:mm">
+                                            <input name="startTimeDate" id="startTimeDate" class="form-control" placeholder="Select a date" ng-model="startTime" ng-model-options="{ updateOn: 'blur' }" required>
+                                        </div>
+                                        <!--input ng-model="startTime" class="form-control fg-line fg-toggled" date-format="dd-MM-yyyy HH:mm" datetime-picker hour="23" minute='59' required /-->
+                                        <label class="fg-label">Negotiation Start Time</label>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="text-left top-buffer col-md-4">
+                                <button class='btn btn-primary btn-sm' href='javascript:void(0);' ng-if="Loding == false" ng-click="updateAuctionStart()">Update Start Time</button>
+                                <button class='btn btn-primary btn-sm' href='javascript:void(0);' ng-if="Loding == true">Loading...     <img id="mySpinner" align="middle" ng-if="Loding == true" src="img/AcadsLoding.gif" />  </button>
+                            </div>                            
+                        </div>
+                        <div id="auctiontimer" ng-show="startBtns && !isDeleted" class="col-md-10 padding0" style="margin-top:5px;">                            
+                            <div>Kindly review the<a ng-click="clickToOpen()"> Terms and Conditions </a>before Updating the Negotiation Start Time.</div>
+                        </div>
+
+
+                            <div id="auctiontimer2" ng-show="!auctionStarted && !userIsOwner && !isDeleted" class="text-center col-md-12 padding0" style="margin-top:40px;margin-bottom: 20px;">
+                                <div class="text-center top-buffer col-md-4 fltleft padding0">
+                                    <div class="form-group fg-float col-sm-12 m-b-30">
+                                        <div class="fg-line">
+                                            <input id="quotationamount" type="number" ng-model="vendorBidPrice" class="form-control fg-input">
+                                            <label class="fg-label">Quotation Amount</label>
+                                        </div>
+                                        <div ng-show="bidPriceEmpty">
+                                            <div class="help-block error logininput" ng-show="bidPriceEmpty">Please enter Quotation Amount</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="text-center top-buffer col-md-4 fltleft padding0" ng-show="auctionItem.inclusiveTax == 0">
+                                    <div class="form-group fg-float col-sm-12 m-b-30">
+                                        <div class="fg-line">
+                                            <input id="taxamount" type="number" ng-model="vendorTaxes" class="form-control fg-input">
+                                            <label class="fg-label">Taxes(%)</label>
+                                        </div>
+                                        <div ng-show="taxesEmpty">
+                                            <div class="help-block error logininput" ng-show="taxesEmpty">Please enter Tax percentage</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="text-left top-buffer col-md-4 fltleft padding0" ng-if="!isDeleted">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <span class="btn btn-primary btn-file m-r-10">
+                                            <span class="fileinput-new">Upload Quotation Doc</span>
+                                            <span class="fileinput-exists">Modify Document</span>
+                                            <input type="file" accept=".pdf,.xlsx,.xls,.txt,.jpeg,.png,.jpg" id="quotation" ng-file-select="onFileSelect($files)" />
+                                        </span>
+                                        <span class="fileinput-filename"></span>
+                                        <a href="#" class="close fileinput-exists removeattachedquotes" data-dismiss="fileinput">&times;</a>
+                                    </div>
+
+                                    <div ng-show="bidAttachementValidation">
+                                        <div class="help-block error logininput" ng-show="bidAttachementValidation">Please select Quotation file</div>
+                                    </div>
+                                </div>
+                                <div class="text-left top-buffer col-md-4 fltleft padding0">
+                                    <button class='btn btn-primary btn-sm' ng-disabled="!enableMakeBids || makeaBidLoding == true" href='javascript:void(0);' ng-click="makeaBid()">Submit Quotation<span><img id="mySpinner" ng-show="makeaBidLoding == true" align="middle" src="img/AcadsLoding.gif" /></span></button>                                                                        
+                                </div>
+
+                            </div>
+
+                        <div id="auctiontimer3" ng-show="!userIsOwner && !isDeleted && auctionItem.status == 'Negotiation Ended' && quotationUrl != '' && quotationUrl != null" class=" text-center col-md-12 padding0" style="margin-top:1px;margin-bottom: 20px;">
+                            
+                            <h3 class="text-left">Upload Revised Quotation</h3>                                                                
+                                <div class="text-left top-buffer col-md-4 fltleft padding0" ng-if="!isDeleted">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <span class="btn btn-primary btn-file m-r-10">
+                                            <span class="fileinput-new">Upload Quotation Doc</span>
+                                            <span class="fileinput-exists">Modify Document</span>
+                                            <input type="file" accept=".pdf,.xlsx,.xls,.txt,.jpeg,.png,.jpg" id="quotation1" ng-file-select="onFileSelect($files)" />
+                                        </span>
+                                        <span class="fileinput-filename"></span>
+                                        <a href="#" class="close fileinput-exists removeattachedquotes" data-dismiss="fileinput">&times;</a>
+                                    </div>
+                                    <div ng-show="bidAttachementValidation">
+                                        <div class="help-block error logininput" ng-show="bidAttachementValidation">Please select Quotation file</div>
+                                    </div>
+                                </div>
+                                <div class="text-left top-buffer col-md-4 fltleft padding0">
+                                    <button class='btn btn-primary btn-sm' ng-disabled="!enableMakeBids || makeaBidLoding == true" href='javascript:void(0);' ng-click="revquotationupload()">Submit Quotation<span><img id="mySpinner" ng-show="makeaBidLoding == true" align="middle" src="img/AcadsLoding.gif" /></span></button>
+                                </div>
+                            </div>
+
+                            <div id="auctiontimer2" ng-show="!userIsOwner && auctionStarted && auctionItem.status == 'STARTED' && !isDeleted && vendorQuotedPrice!=0" class="text-center col-md-12 padding0"
+                                 style="margin-top:40px;margin-bottom: 20px;">
+                                <div class="text-left top-buffer col-md-3">
+                                    <input id="reduceBidValue" ng-disabled="true" type="number" ng-model="auctionItem.minPrice" class="form-control fg-input fg-toggled">
+                                    <h4><label class="fg-label">Current Price</label></h4>
+                                    <h6><b><font class="text-muted"><span></span>  </font></b></h6>
+                                </div>
+                                <div class="text-left top-buffer col-md-3">
+                                    <input id="reduceBidValue" type="number" ng-min="0" min="0" ng-model="reduceBidValue" ng-change="reduceBidAmount()" class="form-control fg-input fg-toggled">
+                                    <h4><label class="fg-label">Reduce Bid Amount By</label></h4>
+                                    <h6><b><font class="text-muted"><span ng-bind="reduceBidAmountNote"></span>  </font></b></h6>
+
+                                </div>
+                                <div class="text-left top-buffer col-md-3">
+                                    <input id="reduceBidValue" ng-disabled="true" type="number" ng-model="auctionItem.minPrice - reduceBidValue" class="form-control fg-input fg-toggled">
+                                    <h4><label class="fg-label">New Price to be Quoted</label></h4>
+                                    <h6><b><font class="text-muted"><span></span>  </font></b></h6>
+
+                                </div>
+                                <div class="text-left top-buffer col-md-2 fltleft" ng-click="makeaBid1()">
+                                    <button class='btn btn-primary btn-sm' href='javascript:void(0);'>Make a Bid</button>
+                                </div>
+                                <div class="col-md-1" style="margin-top:40px;margin-bottom: 20px;" ng-hide="true"> <b>OR</b> </div>
+                                <div class="text-left top-buffer col-md-3 fltleft">
+                                    <input id="makebidvalue" ng-hide="true" type="number" ng-min="0" min="0" ng-model="vendorBidPrice" ng-change="bidAmount()" class="form-control fg-input">
+                                    <label class="fg-label" ng-hide="true">Quote Bid Amount</label>
+
+                                    <div ng-show="bidPriceEmpty">
+                                        <div class="help-block error logininput padding0" ng-show="bidPriceEmpty" style="margin-top:-10px">Please enter valid Bid Amount</div>
+                                    </div>
+                                    <div ng-show="bidPriceValidation">
+                                        <div class="help-block error logininput padding0" ng-show="bidPriceValidation" style="margin-top:-10px">Bidamount be less then min price</div>
+                                    </div>
+                                    <h6><b><font class="text-muted"><span ng-bind="incTaxBidAmountNote"></span>  </font></b></h6>
+                                </div>
+
+                                
+
+                            </div>
+                            <div ng-show="!userIsOwner && auctionStarted && auctionItem.status == 'STARTED' && !isDeleted && vendorQuotedPrice!=0"><h4><b><font class="text-muted"><span ng-bind="noteForBidValue"></span>  </font></b></h4></div>
+                        </div>
+                </div>
+            </div>
+            <div class="card" ng-show='false'>
+                <div class="card-header">
+                    <h2>Requirement Details</h2>
+                </div>
+                <div class="card-body card-padding">
+                    <div class="table-responsive z-depth-1 clear-both">
+                        <table class="table table-striped top-buffer table-vmiddle">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            Posted: <strong>{{auctionItem.postedOn}}</strong>											
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            <div>
+                                                Lowest Quote before Negotiation: <strong class="float-right" ng-bind-html= "vendorInitialPrice | numToCurrency"><!-- {{vendorInitialPrice | currency:"&#8377;"}} --></strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            Category: <strong>{{auctionItem.category[0]}}</strong>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            <div>
+                                                Delivery location: <strong class="float-right">{{auctionItem.deliveryLocation}}</strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            Urgency: <strong>{{auctionItem.urgency}}</strong>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="col-sm-12">
+                                            <div>
+                                                Include Freight Charges?: <strong class="float-right">{{(auctionItem.includeFreight)?"Yes":"No";}}</strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="top-buffer"></div>
+                </div>
+            </div>
+
+            <div ng-show ="false" class="card">
+                <div class="card-header">
+                    <h2>Requirement Comments</h2>
+                </div>
+                <div class="card-body card-padding">
+                    <div class="timeline requirementcomments" style="padding: 0px;">
+                        <div class="t-view" data-tv-type="text">
+                            <div class="tv-header media">
+                                <div class="media-body p-t-5">
+                                    <strong class="d-block">{{auctionItem.custFirstName}} {{auctionItem.custLastName}}</strong>
+                                    <small class="c-gray">{{ auctionItem.postedOn | ctime | date:'medium' }}</small>
+                                </div>
+                            </div>
+                            <div class="tv-body">
+                                <h4><b>Title:</b> {{auctionItem.title}}</h4>
+                                <h4><b>Description:</b></h4> <h4 ng-bind-html="desc">{{desc}}</h4>
+
+                                <div ng-app="app" class="container">
+                                    <h4><b>Angular Star Rating Directive</b></h4>
+                                    <div star-rating ng-model="rating.rating1" max="10" on-rating-select="rating.rateFunction(rating)"></div>
+                                    <star-rating ng-model="rating.rating2" readonly="rating.isReadonly"></star-rating>
+                                    <label>
+                                    <input type="checkbox" ng-model="rating.isReadonly"/>
+                                    Is Readonly
+                                    </label>
+
+                                    <div><strong>Rating 1:</strong> {{rating.rating1}}</div>
+                                    <div><strong>Rating 2:</strong> {{rating.rating2}}</div>
+                                </div>
+
+                                <div class="clearfix"></div>
+
+                                <ul  ng-if="false" class="tvb-stats">
+                                    <li class="tvbs-comments">{{Comments.length}} Comments</li>
+                                </ul>
+                                <div  ng-if="false" class="form-group fg-float" ng-if="!isDeleted">
+                                    <div class="fg-line input-field">
+                                        <textarea ng-model="newComment" id="comment" name="comment" rows="3" class="form-control fg-input"></textarea>
+                                        <label class="fg-label">Add Comment</label>
+                                    </div>
+                                </div>
+                                <div>
+                            <div class="help-block error logininput" ng-show="commentsvalidation">Please enter Comment Text</div>
+                        </div>
+                                <button  ng-if="!isDeleted && false" class='btn btn-primary btn-sm' href='javascript:void(0);' ng-click="saveComment()">Add Comment</button></div>
+
+                            <div  ng-if="false" class="tv-comments">
+                                <ul class="tvc-lists">
+                                    <li class="media" ng-repeat="comment in Comments">
+                                        <a href="" class="tvh-user pull-left">
+                                            <img class="img-responsive" src="img/profile-pics/{{comment.userID}}.jpg" alt="">
+                                        </a>
+                                        <div class="media-body">
+                                            <strong class="d-block">{{comment.firstName}} {{comment.lastName}}</strong>
+                                            <small class="c-gray">{{ comment.createdTime | ctime | date:'medium' }}</small>
+
+                                            <div class="m-t-10">
+                                                {{comment.commentText}}
+                                            </div>
+
+                                        </div>
+
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="top-buffer"></div>
+                </div>
+            </div>
+            <div class="card" ng-show="userIsOwner && !isDeleted && !auctionStarted && auctionItem.status == 'UNCONFIRMED'">
+                <div class="card-header">
+                    <h2>Delete Requirement</h2>
+                </div>
+                <div class="card-body card-padding">
+                    <form ng-submit="deleteRequirementForm.$valid && deleteRequirement()" class="deleteRequirementForm" name="deleteRequirementForm" novalidate>
+                        <div class="form-group fg-float">
+                            <div class="fg-line input-field fg-toggled">
+                                <textarea ng-model="reason" id="reason" name="reason" rows="3" class="form-control fg-input" required></textarea>
+                                <label class="fg-label" for="Reason">Reason</label>
+                            </div>
+                            <div ng-show="deleteRequirementForm.$submitted || deleteRequirementForm.reason.$touched">
+                                <div class="help-block error logininput" ng-show="deleteRequirementForm.reason.$error.required">Please enter Reason</div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-file m-r-10">Delete Requirement</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2>Complete Requirement Details</h2>
+                </div>
+                <div class="card-body card-padding">
+                    <div class="table-responsive z-depth-1 clear-both">
+                  
+                        <div class="col-md-12 p-15">
+                            <div class="col-md-12 p-15">
+                                <h4><strong>Title:</strong>{{ auctionItem.title}}</h4>
+                            </div>
+                            <div class="col-md-12 p-l-15 p-b-5">
+                                 <h4><strong>Description:</strong></h4><span ng-bind-html="desc">{{desc}}</span>
+                            </div>
+                            <div class="col-md-12 p-5 ">                            
+                                <div class="col-md-6 p-5">
+                                    <div class="col-sm-12 p-5">
+                                        <strong>Category: </strong>{{auctionItem.category[0]}}
+                                    </div>
+                                     <div class="col-sm-12 p-5" style="white-space: nowrap;">
+                                        <strong>Delivery Time: </strong>{{auctionItem.deliveryTime}}
+                                    </div>
+                                    <div class="col-sm-12 p-5" style="white-space: nowrap;">
+                                        <strong>Posted:</strong> {{auctionItem.postedOn}}
+                                    </div>
+                                    <div class="col-sm-12 p-5" >
+                                        <strong>Include Freight Charges?:</strong> {{(auctionItem.includeFreight)?"Yes":"No";}}
+                                    </div>
+                                    <div class="col-sm-12 p-5" style="white-space: normal;">
+                                        <strong>Payment Terms: </strong>{{auctionItem.paymentTerms}}
+                                    </div>
+                                    <div class="col-sm-12 p-5" style="white-space: nowrap;">
+                                        <strong>Quotation Freez Time: </strong>{{auctionItem.quotationFreezTime}} (IST).
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-5">
+                                    <div class="col-sm-12 p-5">
+                                        <strong>Urgency: </strong>{{auctionItem.urgency}}</strong>
+                                    </div>
+                                    <div class="col-sm-12 p-5">
+                                        <strong>Delivery location: </strong>{{auctionItem.deliveryLocation}}
+                                    </div>
+                                    <div class="col-sm-12 p-5">
+                                        <strong>Lowest Quote before Negotiation: </strong><span ng-bind-html= "vendorInitialPrice | numToCurrency"></span>
+                                    </div>
+                                    <div class="col-sm-12 p-5" >
+                                        <strong>Is Inclusive Tax?: </strong class="float-right">{{(auctionItem.inclusiveTax)?"Yes":"No";}}</strong>
+                                    </div>
+                                    <div class="col-sm-12 p-5" ng-show="userIsOwner" style="white-space: normal;">
+                                        <strong>Budget: </strong>{{auctionItem.budget}}
+                                    </div>
+                                    <div class="col-sm-12 p-5" ng-show="userIsOwner && auctionItem.savings > 0" style="white-space: normal;">
+                                        <strong>Savings: </strong>{{auctionItem.savings}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 p-b-5" ng-if="auctionItem.attachmentName && auctionItem.attachmentName != ''">
+                                <!--strong>Requirement Attachments: </strong><a target="_blank "href="{{ auctionItem.attachmentName}}">Link</a-->
+                                <strong>Requirement Attachments: </strong><a target="_blank" href="FileDownload.aspx?attachid={{auctionItem.attachmentName}}&sessionid={{sessionid}}">Link</a>
+                            </div>
+                            <div class="col-sm-12 p-b-5" ng-if="auctionItem.poLink && auctionItem.poLink != '' && (auctionItem.customerID == customerID || auctionItem.superUserID == customerID || (auctionItem.selectedVendorID == customerID && auctionItem.status != 'PO Processing' ))">
+                                     <!--strong>Requirement Attachments: </strong><a target="_blank "href="{{ auctionItem.attachmentName}}">Link</a-->
+                                     <strong>Purchase Order: </strong>
+                                     <a target="_blank" href="FileDownload.aspx?attachid={{auctionItem.poLink}}&sessionid={{sessionid}}">Link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top-buffer"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+
+<footer id="footer" data-ng-include="'template/footer.html'"></footer>

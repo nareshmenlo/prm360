@@ -1,0 +1,541 @@
+<div class="login-content" data-ng-controller="loginCtrl" >
+    <!-- Login -->
+    <div class="lc-block" id="l-login" data-ng-class="{ 'toggled': login === 1 }" data-ng-if="login === 1">
+
+        <img class="logo text-center" src="img/logos/acadslogo.png">
+        <form ng-submit="loginForm.$valid && loginSubmit()" class="loginForm" name="loginForm" novalidate>
+            <div class="alert alert-danger alert-dismissible" ng-if="msg" ng-show="showMessage">
+                <button type="button" class="close" ng-click="closeMsg()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <span class="logininput" ng-bind-html="msg"></span>
+            </div>
+            <div class="alert alert-danger alert-dismissible" ng-if="successmsg" ng-show="sucessshowMessage">
+                <button type="button" class="close" ng-click="closeMsg()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <span class="logininput" ng-bind-html="successmsg"></span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="user.username" name="username" type="text" class="form-control logininput" id="exampleInputEmail1"
+                        ng-change="change()" required />
+                        <label class="fg-label" for="username">Username</label>
+                    </div>
+                    <div ng-show="loginForm.$submitted || loginForm.username.$touched">
+                        <div class="help-block error logininput" ng-show="loginForm.username.$error.required">Please enter username</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-male"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-action-lock-outline prefix"></i>
+                        <input ng-model="user.password" name="password" type="password" class="form-control logininput" id="exampleInputPassword1"
+                         ng-change="change()" required />
+                        <label class="fg-label" for="password">Password</label>
+                    </div>
+                    <div ng-show="loginForm.$submitted || loginForm.password.$touched">
+                        <div class="help-block error logininput" ng-show="loginForm.password.$error.required">Please enter password</div>
+                    </div>
+                    <a href="" data-ng-click="forgotbtn()"  class="forgotcolor">Forgot Password</a>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="">
+                    <i class="input-helper"></i> Keep me signed in
+                </label>
+            </div>
+            <div class="clearfix">
+                <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+            </div>
+        </form>
+        <div class="col-xs-12 text-center registrationDiv">
+            <div class="col-xs-7 text-center">
+                <a href="" tooltip-placement="top" data-ng-click="registrationbtn()" uib-tooltip="Customer Registration" class="registerations">Customer Registration</a>
+            </div>
+            <div class="col-xs-2 text-center">
+            </div>
+            <div class="col-xs-5 text-center">
+                <a href="" tooltip-placement="top" data-ng-click="vendorregistrationbtn()" uib-tooltip="Vendor Registration" class="registerations">Vendor Registration</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register -->
+    <div class="lc-block" id="l-register" data-ng-class="{ 'toggled': register === 1 }" data-ng-if="register === 1">
+        <img class="logo text-center" src="img/logos/acadslogo.png">
+        <div class="col-xs-12 text-center padding0">
+            <div class="col-xs-12 padding0 text-right">
+                Already Registered? <a href="" tooltip-placement="top" data-ng-click="loginbtn()" uib-tooltip="Login" class="registerations">Log In</a>
+            </div>
+        </div>
+        <form ng-submit="registerForm.$valid && userregistration()" class="registerForm" name="registerForm" novalidate>
+                    <div class="alert alert-danger alert-dismissible" ng-if="msg" ng-show="showMessage">
+                        <button type="button" class="close" ng-click="closeMsg()">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <span class="logininput" ng-bind-html="msg"></span>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" ng-if="successmsg" ng-show="sucessshowMessage">
+                            <button type="button" class="close" ng-click="closeMsg()">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <span class="logininput" ng-bind-html="successmsg"></span>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-social-person-outline prefix"></i>
+                                    <input ng-model="registerobj.firstName" name="firstName" type="text" class="form-control logininput" id="firstName"
+                                     ng-change="change()" required />
+                                    <label class="fg-label" for="firstName">First Name</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.firstName.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.firstName.$error.required">Please enter First Name</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-social-person-outline prefix"></i>
+                                    <input ng-model="registerobj.lastName" name="lastName" type="text" class="form-control logininput" id="lastName" 
+                                    ng-change="change()" required />
+                                    <label class="fg-label" for="lastName">Last Name</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.lastName.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.lastName.$error.required">Please enter lastname</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group" >
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-social-person-outline prefix"></i>
+                                    <input ng-model="registerobj.institution" name="institution" type="text" class="form-control logininput" id="institution" 
+                                    ng-change="change()"  />
+                                    <label class="fg-label" for="institution">Company Name</label>
+                                </div>                   
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-social-person-outline prefix"></i>
+                                    <input ng-model="registerobj.username" ng-minlength=5 name="username" type="text" class="form-control logininput" id="exampleInputEmail1"  ng-change="change()" required/>
+                                    <label class="fg-label" for="username">Username</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.username.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.username.$error.required">Please enter username</div>
+                                    <div class="help-block error logininput" ng-show="registerForm.username.$error.minlength">Must be at least 5 characters.</div>
+                                    <!--<div class="help-block error logininput" ng-show="registerForm.username.$error.unique">Username is already taken</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-social-person-outline prefix"></i>
+                                    <input ng-model="registerobj.email" name="email" type="email" class="form-control logininput" id="exampleInputEmail1" ng-change="change()" required/>
+                                    <label class="fg-label" for="email">Email Address</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.email.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.email.$error.required">Please enter email</div>
+                                    <div class="help-block error logininput" ng-show="registerForm.email.$error.email">Please enter a valid email</div>
+                                    <!--<div class="help-block error logininput" ng-show="registerForm.email.$error.unique">Email is already taken</div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-social-person-outline prefix"></i>
+                                    <input ng-model="registerobj.phoneNum" name="phoneNum" type="text" class="form-control logininput" id="phoneNum" 
+                                    ng-change="change()" required />
+                                    <label class="fg-label" for="phoneNum">Phone Number</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.phoneNum.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.phoneNum.$error.required">Please enter phonenumber</div>
+                                    <div class="help-block error logininput" ng-show="registerForm.phoneNum.$error.number">Please enter a valid phonenumber</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-male"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-action-lock-outline prefix"></i>
+                                    <input ng-model="registerobj.password" name="password" type="password" class="form-control logininput" id="password"
+                                     ng-change="change()" ng-minlength="6" required />
+                                    <label class="fg-label" for="password">Password</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.password.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.password.$error.required">Please enter password</div>
+                                    <div class="help-block error logininput" ng-show="registerForm.password.$error.minlength">Password must be at least 6 characters.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <span class="input-group-addon"><!-- <i class="zmdi zmdi-male"></i> --></span>
+                            <div class="form-group fg-float">
+                                <div class="fg-line input-field">
+                                    <i class="mdi-action-lock-outline prefix"></i>
+                                    <input ng-model="registerobj.confirmpassword" name="confirmpassword" type="password" class="form-control logininput" id="confirmpassword"
+                                     ng-change="change()" required pw-check="password" />
+                                    <label class="fg-label" for="confirmpassword">Confirm Password</label>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.confirmpassword.$touched">
+                                    <div class="help-block error logininput" ng-show="registerForm.confirmpassword.$error.required">Please enter confirm password</div>
+                                </div>
+                                <div ng-show="registerForm.$submitted || registerForm.confirmpassword.$touched">
+                                    <div class="help-block error logininput" ng-show="!registerForm.confirmpassword.$error.required && registerForm.confirmpassword.$error.pwmatch">Passwords don't match.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix">                
+                            <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+                        </div>
+                    </form>
+
+    </div>
+<!-- vendor registrtation-->
+    <div class="lc-block" id="l-register_vendor" data-ng-class="{ 'toggled': register_vendor === 1 }" data-ng-if="register_vendor === 1">
+        <img class="logo text-center" src="img/logos/acadslogo.png">
+        <div class="col-xs-12 text-center padding0">
+            <div class="col-xs-12 padding0 text-right">
+                Already Registered? <a href="" tooltip-placement="top" data-ng-click="loginbtn()" uib-tooltip="Login" class="registerations">Log In</a>
+            </div>
+        </div>
+        <form ng-submit="vendorregisterForm.$valid && RegisterVendor()" class="vendorregisterForm" name="vendorregisterForm" novalidate>
+        <div class="alert alert-danger alert-dismissible" ng-if="msg" ng-show="showMessage">
+            <button type="button" class="close" ng-click="closeMsg()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <span class="logininput" ng-bind-html="msg"></span>
+            </div>
+            <div class="alert alert-danger alert-dismissible" ng-if="successmsg" ng-show="sucessshowMessage">
+                <button type="button" class="close" ng-click="closeMsg()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <span class="logininput" ng-bind-html="successmsg"></span>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.firstName" name="firstName" type="text" class="form-control logininput" id="firstName" required/>
+                        <!--<input ng-model="vendorregisterobj.firstName" name="firstName" type="text" id="firstName"/>-->
+                        <label class="fg-label" for="firstName">First Name</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.firstName.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.firstName.$error.required">Please enter First Name</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.lastName" name="lastName" type="text" class="form-control logininput" id="lastName" required
+                          />
+                        <label class="fg-label" for="lastName">Last Name</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.lastName.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.lastName.$error.required">Please enter lastname</div>
+                    </div>
+                </div>
+            </div>
+             <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                   <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <select  chosen data-placeholder="Select a category..." name="category"  ng-model="vendorregisterobj.category" required class="form-control">
+                            <option value="IT Infrastructure">IT Infrastructure</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Construction">Construction</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <label class="fg-label" for="category">Select a category...</label>
+                    </div>
+                    <div ng-show="(vendorregisterForm.$submitted || vendorregisterForm.category.$touched)">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.category.$error.required">Please choose categories</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.username" name="username" type="text" class="form-control logininput" id="exampleInputEmail1"  required />
+                        <label class="fg-label" for="username">Username</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.username.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.username.$error.required">Please enter username</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.email" name="email" type="email" class="form-control logininput" id="exampleInputEmail1"
+                         required />
+                        <label class="fg-label" for="email">Email Address</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.email.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.email.$error.required">Please enter email</div>
+                        <div class="help-block error logininput" ng-show="!vendorregisterForm.email.$error.required && vendorregisterForm.email.$error.email">Please enter a valid email</div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.phoneNum" name="phoneNum" type="text" class="form-control logininput" id="phoneNum" 
+                         required />
+                        <label class="fg-label" for="phoneNum">Phone Number</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.phoneNum.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.phoneNum.$error.required">Please enter phonenumber</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-male"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-action-lock-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.password" name="password" type="password" ng-minlength="4" class="form-control logininput" id="password"
+                          required />
+                        <label class="fg-label" for="password">Password</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.password.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.password.$error.required">Please enter password</div>
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.password.$error.minlength">Password must be at least 4 characters.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-male"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-action-lock-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.confirmpassword" name="confirmpassword" type="password" class="form-control logininput" id="confirmpassword" pw-check="password"
+                          required />
+                        <label class="fg-label" for="confirmpassword">Confirm Password</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.confirmpassword.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.confirmpassword.$error.required">Please enter confirm password</div>
+                    </div>
+                     <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.confirmpassword.$touched">
+                        <div class="help-block error logininput" ng-show="!vendorregisterForm.confirmpassword.$error.required && vendorregisterForm.confirmpassword.$error.pwmatch">Passwords don't match.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.panno" name="panno" type="text" class="form-control logininput" id="panno" required/>
+                        <label class="fg-label" for="panno">PAN Number</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.panno.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.panno.$error.required">Please enter PAN Number</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.vatno" name="vatno" type="text" class="form-control logininput" id="vatno"  />
+                        <label class="fg-label" for="vatno">TIN Number</label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="vendorregisterobj.taxno" name="taxno" type="text" class="form-control logininput" id="taxno" />
+                        <label class="fg-label" for="taxno">Tax Number</label>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix">                
+                <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Forgot Password -->
+    <div class="lc-block" id="l-forget-password" data-ng-class="{ 'toggled': forgot === 1 }" data-ng-if="forgot === 1">
+        <img class="logo text-center" src="img/logos/acadslogo.png">
+        <form ng-submit="forgotForm.$valid && forgotpasswordfunction()" class="forgotForm" name="forgotForm" novalidate>
+
+            <div class="col-xs-12 padding0 alreadyregisterd">
+                <div class="col-xs-12 padding0 text-right">
+                    Already Registered? <a href="" tooltip-placement="top" data-ng-click="loginbtn()" uib-tooltip="Login" class="registerations">Log In</a>
+                </div>
+            </div>
+              <div class="input-group  m-b-20 forgotfielddiv">
+                <span class="input-group-addon"><!-- <i class="zmdi zmdi-account"></i> --></span>
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="forgotpassword.email" name="email"  type="email" class="form-control logininput" id="exampleInputEmail1"
+                         required />
+                        <label class="fg-label" for="email">Registered Email Address</label>
+                    </div>
+                    <div ng-show="forgotForm.$submitted || forgotForm.email.$touched">
+                        <div class="help-block error logininput" ng-show="forgotForm.email.$error.required">Please enter registered Email Address</div>
+                        <div class="help-block error logininput" ng-show="forgotForm.email.$error.email">Please enter a valid email</div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></button>
+        </form>
+        <div class="col-xs-12 text-center registrationDiv">
+            <div class="col-xs-7 text-center">
+                <a href="" tooltip-placement="top" data-ng-click="registrationbtn()" uib-tooltip="Customer Registration" class="registerations">Customer Registration</a>
+            </div>
+            <div class="col-xs-2 text-center">
+            </div>
+            <div class="col-xs-5 text-center">
+                <a href="" tooltip-placement="top" data-ng-click="vendorregistrationbtn()" uib-tooltip="Vendor Registration" class="registerations">Vendor Registration</a>
+            </div>
+        </div>
+    </div>
+    <!-- OTP VERIFICATION -->
+    <div class="lc-block" id="l-user-otp" data-ng-class="{ 'toggled': otp === 1 }" data-ng-if="otp === 1">
+        <img class="logo text-center" src="img/logos/acadslogo.png">
+        <form ng-submit="otpForm.$valid && verifyOTP()" class="otpForm" name="otpForm" novalidate>
+              <div class="input-group  m-b-20 col-md-12 p-l-20">
+                <div class="form-group fg-float ">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="otpobj.otp" name="otp"  type="number" class="form-control logininput" id="otp1" required />
+                        <label class="fg-label" for="otp">Please Enter OTP</label>
+                    </div>
+                    <div ng-show="otpForm.$submitted || otpForm.otp.$touched">
+                        <div class="help-block error logininput" ng-show="otpForm.otp.$error.required">Please enter otp</div>                        
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-login btn-danger btn-float">
+                <i class="zmdi zmdi-arrow-forward"></i>
+            </button>
+        </form>
+        <div class="col-xs-12 text-center registrationDiv">
+            <div class="col-xs-12 text-center registrationDiv">
+                <div class="form-group fg-float col-md-8 p-0 m-0 p-b-20" ng-if="changepasswordstatus">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="newphonenumber"  name="newphonenumber"  type="text" class="form-control logininput" id="newphonenumber" />
+                        <label class="fg-label" for="otp">New Phonenumber</label>
+                    </div>
+                    <div ng-show="newphonenumber_errors">
+                        <div class="help-block error logininput" style="white-space: nowrap;" ng-show="newphonenumber_required_error">Please enter phone number</div>
+                        <div class="help-block error logininput" ng-show="newphonenumber_validation_error" style="white-space: nowrap;">Please enter valid phone number</div>
+                    </div>
+                </div>
+                <div class="col-md-4 p-t-20 m-0 p-b-20" ng-if="changepasswordstatus">
+                    <button ng-click="changePhoneNumber();" class="btn btn-login btn-sm btn-primary">
+                        Change
+                    </button>                    
+                </div>
+            </div>
+            <div class="col-xs-7 text-center">
+                <a href="" tooltip-placement="top" ng-click="changepasswordstatus=!changepasswordstatus;" class="registerations">Change Phone Number</a>
+            </div>
+            <div class="col-xs-2 text-center">
+            </div>
+            <div class="col-xs-5 text-center">
+                <a href="" tooltip-placement="top" ng-click="sendOTPagain();" uib-tooltip="Resend OTP" class="registerations">Resend OTP</a>
+            </div>
+        </div>
+    </div>
+    <div class="lc-block" id="l-user-verification" style="width: 400px;" data-ng-class="{ 'toggled': verification === 1 }" data-ng-if="verification === 1">
+        <img class="logo text-center" src="img/logos/acadslogo.png" style="margin-bottom: 10px;">
+        <div class="col-md-12 text-center p-10 m-b-10">Document Verfication</div>
+        <form ng-submit="verificationForm.$valid && docsVerification()" class="verificationForm" name="verificationForm" novalidate>
+              <div class="input-group  m-b-20 col-md-12 p-l-20">
+                <div class="form-group">
+                    <span>Scanned PAN Copy</span><br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput" style="padding-right: 0px;">
+                        <span class="btn btn-primary btn-file">
+                        <span class="fileinput-new">Select Scanned PAN copy</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" id="pandoc" doctype="PAN" ng-file-select-docs="onFileSelect($files)" required />
+                        </span>
+                        <span class="fileinput-filename"></span>
+                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group  m-b-20 col-md-12 p-l-20">
+                <div class="form-group">
+                    <span>Scanned TIN Copy</span><br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput" style="padding-right: 0px;">
+                        <span class="btn btn-primary btn-file">
+                        <span class="fileinput-new">Select Scanned TIN copy</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" id="tindoc" doctype="TIN" ng-file-select-docs="onFileSelect($files)" required />
+                        </span>
+                        <span class="fileinput-filename"></span>
+                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group  m-b-20 col-md-12 p-l-20">
+                <div class="form-group">
+                    <span>Scanned Service Tax Number Copy</span><br>
+                    <div class="fileinput fileinput-new" data-provides="fileinput" style="padding-right: 0px;">
+                        <span class="btn btn-primary btn-file">
+                        <span class="fileinput-new">Select Scanned Service Tax Number copy</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" id="stndoc" doctype="STN" ng-file-select-docs="onFileSelect($files)" required />
+                        </span>
+                        <span class="fileinput-filename"></span>
+                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-login btn-danger btn-float">
+                <i class="zmdi zmdi-arrow-forward"></i>
+            </button>
+        </form>
+    </div>
+</div>

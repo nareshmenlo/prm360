@@ -1,0 +1,921 @@
+<!-- $scope.basicinfoCollapse = $scope.contactinfo = $scope.docsverification = $scope.professionalinfo -->
+<div class="pmb-block">
+    <div class="pmbb-header">
+        <h2 class="collapseableh2" ng-click="basicinfoCollapse = !basicinfoCollapse"><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h2>
+        <a class="actions" data-ng-if="pctrl.editInfo === 0 && (!isnegotiationrunning)"  
+        data-ng-click="pctrl.editInfo = 1; basicinfoCollapse =false;" href="">
+            <i class="zmdi zmdi-edit"></i>
+        </a>
+        <!-- <ul class="actions" data-ng-if="pctrl.editInfo === 0">
+            <li class="dropdown" uib-dropdown>
+                
+                <ul class="dropdown-menu dropdown-menu-right" ng-if="!isnegotiationrunning">
+                    <li>
+                        <a data-ng-click="pctrl.editInfo = 1" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body p-l-30 collapse" aria-expanded="false" uib-collapse="basicinfoCollapse"  aria-hidden="true" id="generatePDFHTMl" >
+        <div id="editor" class="bypass"></div>
+        <!-- <button class="btn btn-primary btn-sm" ng-click="generatePDF();">generatePDF</button> -->
+
+        <div class="pmbb-view" style="overflow-wrap: break-word;" data-ng-if="pctrl.editInfo === 0">
+            <dl class="dl-horizontal">
+                <dt>First Name *</dt>
+                <dd>{{ userObj.firstName }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Last Name</dt>
+                <dd>{{ userObj.lastName }}</dd>
+            </dl>
+        </div>
+
+        <form name="test1" data-ng-submit="pctrl.submit('profileInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editInfo === 1">
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">First Name</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userObj.firstName" type="text" class="form-control" id="firstName" value="{{ userObj.firstName }}" required>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Last Name</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userObj.lastName" type="text" class="form-control" value="{{ userObj.lastName }}" required>
+                    </div>
+
+                </dd>
+            </dl>
+
+            <div class="m-t-30">
+                <button class="btn btn-primary btn-sm" ng-click="pctrl.updateUserInfo();">Save</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.editInfo = 0">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/ng-template" id="verifyOTPModal.html">
+    <div class="modal-header text-center">
+        <img class="logo text-center otplogo" src="img/logos/acadslogo.png">
+        <h4 class="modal-title">Mobile OTP Verification</h4>
+    </div>
+    <div class="modal-body">
+        <div class="input-group  m-b-20 col-md-12 p-l-20">
+            <div class="form-group fg-float ">
+                <div class="fg-line input-field">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input ng-model="modalotpvalue" name="otp" type="number" class="form-control logininput" id="otp1" required />
+                    <label class="fg-label" for="otp">Please Enter OTP</label>
+                </div>
+                <div ng-show="otpvalueValidation">
+                    <div class="help-block error logininput" ng-show="otpvalueValidationEmpty">Please enter otp</div>
+                    <div class="help-block error logininput" ng-show="otpvalueValidationError">Please enter otp</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-error btn-sm" ng-click="cancel();">Cancel</button>
+        <button class="btn btn-primary btn-sm" ng-click="verifyOTP();">Verify OTP</button>
+        <button class="btn btn-warning btn-sm" ng-click="sendOTPagain();">Resend OTP</button>
+        <!--     <button class="btn btn-link" ng-click="ok()">OK</button>
+            <button class="btn btn-link" ng-click="cancel()">Cancel</button>         -->
+    </div>
+</script>
+
+
+
+<script type="text/ng-template" id="verifyEmailOTPModal.html">
+    <div class="modal-header text-center">
+        <img class="logo text-center otplogo" src="img/logos/acadslogo.png">
+        <h4 class="modal-title">Email OTP Verification</h4>
+    </div>
+    <div class="modal-body">
+        <div class="input-group  m-b-20 col-md-12 p-l-20">
+            <div class="form-group fg-float ">
+                <div class="fg-line input-field">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input ng-model="modalotpvalue" name="otp" type="number" class="form-control logininput" id="otp1" required />
+                    <label class="fg-label" for="otp">Please Enter OTP</label>
+                </div>
+                <div ng-show="otpvalueValidation">
+                    <div class="help-block error logininput" ng-show="otpvalueValidationEmpty">Please enter otp</div>
+                    <div class="help-block error logininput" ng-show="otpvalueValidationError">Please enter otp</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-error btn-sm" ng-click="cancel();">Cancel</button>
+        <button class="btn btn-primary btn-sm" ng-click="verifyEmailOTP();">Verify OTP</button>
+        <button class="btn btn-warning btn-sm" ng-click="sendEmailOTPagain();">Resend OTP</button>
+        <!--     <button class="btn btn-link" ng-click="ok()">OK</button>
+            <button class="btn btn-link" ng-click="cancel()">Cancel</button>         -->
+    </div>
+</script>
+
+
+
+
+<div class="pmb-block">
+    <div class="pmbb-header">
+        <h2 class="collapseableh2" ng-click="contactinfo = !contactinfo"><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h2>
+        <a class="actions" ng-if="!isnegotiationrunning && pctrl.editContact === 0 " data-ng-click="pctrl.editContact = 1; (!contactinfo)?'': contactinfo = !contactinfo;" href="">
+            <i class="zmdi zmdi-edit"></i>
+        </a>
+        <!-- <a  class="actions" data-ng-if="pctrl.editContact === 0 && !isnegotiationrunning"  data-ng-click="pctrl.editContact = 1" href=""><i class="zmdi zmdi-edit"></i></a> -->
+       <!--  <ul class="actions" data-ng-if="pctrl.editContact === 0">
+            <li class="dropdown" uib-dropdown>
+                <a href="" uib-dropdown-toggle>
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right" ng-if="!isnegotiationrunning">
+                    <li>
+                        <a data-ng-click="pctrl.editContact = 1" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body p-l-30 collapse" aria-expanded="false" uib-collapse="contactinfo"  aria-hidden="true">
+        <div class="pmbb-view" style="overflow-wrap: break-word;" data-ng-if="pctrl.editContact === 0">
+            <dl class="dl-horizontal">
+                <dt>Mobile Phone</dt>
+                <dd>
+                    {{ userObj.phoneNum }}
+                    <span ng-if="isOTPVerified != 1" style="color:red;">Not Verified</span>
+                    <span ng-if="isOTPVerified != 1" data-ng-click="otpModalInstances();" style="color:blue;cursor: pointer;">click to verify OTP</span>
+                    <span ng-if="isOTPVerified == 1" style="color:green;">Verified</span>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Email Address</dt>
+                <dd>
+                    {{ userObj.email }}
+                    <span ng-if="isEmailOTPVerified != 1" style="color:red;">Not Verified</span>
+                    <span ng-if="isEmailOTPVerified != 1" data-ng-click="emailModalInstances(); sendEmailOTPagain()" style="color:blue;cursor: pointer;">click to verify EMAIL</span>
+                    <span ng-if="isEmailOTPVerified == 1" style="color:green;">Verified</span>
+                </dd>
+            </dl>
+        </div>
+        <form name="test2" data-ng-submit="pctrl.submit('profileContact', 'Profile Contact Information')" class="pmbb-edit" data-ng-if="pctrl.editContact === 1">
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Mobile Phone</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userObj.phoneNum" type="text" class="form-control">
+                    </div>
+                    <div ng-show="otpvalueValidation">
+                        <div class="help-block error logininput" ng-show="otpvalueValidationEmpty">Please enter otp</div>
+                        <div class="help-block error logininput" ng-show="otpvalueValidationError">Please enter otp</div>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Email Address</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userObj.email" type="email" class="form-control">
+                        {{pctrl.userDetails.achievements}}
+                    </div>
+                </dd>
+            </dl>
+            <div class="m-t-30">
+                <button class="btn btn-primary btn-sm" ng-click="pctrl.updateUserInfo();">Save</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.editContact = 0">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="pmb-block" ng-if="userObj.isSuperUser">
+    <div class="pmbb-header">
+       <h2 class="collapseableh2" ng-click="docsverification = !docsverification"><i class="zmdi zmdi-assignment m-r-5"></i>Documents Verification</h2>
+        <a class="actions" ng-if="pctrl.editDocVerification === 0 && userObj.isSuperUser && !isnegotiationrunning" data-ng-click="pctrl.editDocVerification = 1" href="">
+            <i class="zmdi zmdi-edit"></i>
+        </a>
+        <!-- <ul class="actions" data-ng-if="pctrl.editDocVerification === 0 && userObj.isSuperUser">
+            <li class="dropdown" uib-dropdown>
+                <a href="" uib-dropdown-toggle>
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right" ng-if="!isnegotiationrunning">
+                    <li>
+                        <a data-ng-click="pctrl.editDocVerification = 1" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body p-l-30 collapse" aria-expanded="false" uib-collapse="docsverification"  aria-hidden="true">
+        <div class="pmbb-view" data-ng-if="pctrl.editDocVerification === 0">
+            <dl class="dl-horizontal" ng-repeat="single in uploadedCredentials">
+                <dt>{{single.fileType}} Copy</dt>
+                <dd>
+                    {{single.credentialID}}
+                    <span ng-if="single.isVerified == 0 && single.fileLink==''" style="color:red;">Not Uploaded Credentials<a data-ng-click="pctrl.editDocVerification = 1" href="">(Click here to upload)</a></span>
+                    <span ng-if="single.isVerified == 0 && single.fileLink!=''" style="color:red;">Not Verified</span>
+                    <span ng-if="single.isVerified == 1" style="color:green;">Verified</span>
+                    <!--span ng-if="single.fileLink!=''"></span><a href="{{single.fileLink}}" target="_blank" ng-if="single.fileLink!=''">Download</a-->
+                    <span ng-if="single.fileLink!=''"></span><a href="FileDownload.aspx?attachid={{single.fileLink}}&sessionid={{sessionid}}" target="_blank" ng-if="single.fileLink!=''">Download</a>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="pmbb-edit" data-ng-if="pctrl.editDocVerification === 1">
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">PAN *</dt>
+                <dd>
+                    <div class="fg-line">
+                        <div class="form-group fg-float col-md-4">
+                            <div class="fg-line input-field fg-toggled">
+                                <i class="mdi-social-person-outline prefix"></i>
+                                <input ng-model="pannumber" ng-change="change()" name="pannumber" type="text" class="form-control logininput" id="pannumber" />
+                                <label class="fg-label" for="panno">PAN Number</label>
+                            </div>
+                            <div ng-show="pannumberrequired || pannumberalpha || pannumberlengthvalidation">
+                                <div class="help-block error logininput" ng-show="pannumberrequired">PAN Number and PAN photo attachment are required.</div>
+                                <div class="help-block error logininput" ng-show="pannumberalpha">PAN Number should have only alphanumeric.</div>
+                                <div class="help-block error logininput" ng-show="pannumberlengthvalidation">Enter a valid PAN ex:ABCDE1234F</div>
+                            </div>
+                        </div>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <span class="btn btn-primary btn-file">
+                                <span class="fileinput-new">Choose a file</span>
+                                <span class="fileinput-exists">Change</span>
+                                <input type="file" accept=".pdf,.xlsx,.xls,.txt,.jpeg,.png,.jpg" id="pandoc" doctype="PAN" ng-file-select-docs="onFileSelect($files)" required />
+                            </span>
+                            <span class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">TIN *</dt>
+                <dd>
+                    <div class="fg-line">
+                        <div class="form-group fg-float col-md-4">
+                            <div class="fg-line input-field fg-toggled">
+                                <i class="mdi-social-person-outline prefix"></i>
+                                <input ng-model="vatnumber" ng-change="change()" name="vatnumber" type="text" class="form-control logininput" id="vatnumber" />
+                                <label class="fg-label" for="vatno">TIN Number</label>
+                            </div>
+                            <div ng-show="tinnumberrequired || tinnumberlengthvalidation">
+                                <div class="help-block error logininput" ng-show="tinnumberrequired">TIN Number and TIN photo attachment are required.</div>
+                                <div class="help-block error logininput" ng-show="tinnumberlengthvalidation">TIN Number must be 11 characters.</div>
+                            </div>
+                        </div>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <span class="btn btn-primary btn-file">
+                                <span class="fileinput-new">Choose a file</span>
+                                <span class="fileinput-exists">Change</span>
+                                <input type="file" accept=".pdf,.xlsx,.xls,.txt,.jpeg,.png,.jpg" id="tindoc" doctype="TIN" ng-file-select-docs="onFileSelect($files)" required />
+                            </span>
+                            <span class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Service Tax Number</dt>
+                <dd>
+                    <div class="fg-line">
+                        <div class="form-group fg-float col-md-4">
+                            <div class="fg-line input-field fg-toggled">
+                                <i class="mdi-social-person-outline prefix"></i>
+                                <input ng-model="taxnumber" ng-change="change()" name="taxnumber" type="text" class="form-control logininput" id="taxnumber" />
+                                <label class="fg-label" for="taxno">Tax Number</label>
+                            </div>
+                            <div ng-show="taxnumberrequired || taxnumberalpha || taxnumberlengthvalidation">
+                                <div class="help-block error logininput" ng-show="taxnumberrequired">TAX Number and TAX photo attachment are required.</div>
+                                <div class="help-block error logininput" ng-show="taxnumberalpha">TAX Number should have only alphanumeric.</div>
+                                <div class="help-block error logininput" ng-show="taxnumberlengthvalidation">TAX Number must be at least 15 characters.</div>
+                            </div>
+                        </div>
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <span class="btn btn-primary btn-file">
+                                <span class="fileinput-new">Choose a file</span>
+                                <span class="fileinput-exists">Change</span>
+                                <input type="file" accept=".pdf,.xlsx,.xls,.txt,.jpeg,.png,.jpg" id="stndoc" doctype="STN" ng-file-select-docs="onFileSelect($files)" required />
+                            </span>
+                            <span class="fileinput-filename"></span>
+                            <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+
+            <div class="m-t-30">
+                <button class="btn btn-primary btn-sm" ng-click="pctrl.updateVerficationInfo(pannumber,vatnumber,taxnumber)">Save</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.editDocVerification = 0">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pmb-block" ng-if="userObj.isSuperUser">
+    <div class="pmbb-header">
+       <!--  <h2><i class="zmdi zmdi-info m-r-5"></i> Professional Information</h2> -->
+       <h2 class="collapseableh2" ng-click="professionalinfo = !professionalinfo"><i class="zmdi zmdi-info m-r-5"></i> Professional Information</h2>
+        <a class="actions" ng-if="pctrl.editPro === 0 && !isnegotiationrunning" data-ng-click="pctrl.editMode()" href="">
+            <i class="zmdi zmdi-edit"></i>
+        </a>
+
+        <!-- <ul class="actions" data-ng-if="pctrl.editPro === 0">
+            <li class="dropdown" uib-dropdown>
+                <a href="" uib-dropdown-toggle>
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right" ng-if="!isnegotiationrunning">
+                    <li>
+                        <a data-ng-click="pctrl.editMode()" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body p-l-30 collapse" aria-expanded="false" uib-collapse="professionalinfo" >
+        <div class="pmbb-view" style="overflow-wrap: break-word;" data-ng-if="pctrl.editPro === 0">
+            <dl class="dl-horizontal">
+                <dt>About Us</dt>
+                <dd>{{ userDetails.aboutUs }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Directors/ proprietor</dt>
+                <dd>{{ userDetails.directors }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Address</dt>
+                <dd>{{ userDetails.address }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Office/Store Image</dt>
+                <dd><img style="width: 80px;height: 80px;" class="text-center otplogo" ng-show="userDetails.logoURL!= null" src="{{ userDetails.logoURL }}"></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Established Date</dt>
+                <!-- <dd>{{userDetails.establishedDate | ctime | date:'medium'}}</dd> -->
+                <dd><span ng-hide="userDetails.dateshow == 1">{{userDetails.establishedDate}}</span></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Achievements</dt>
+                <dd>{{ userDetails.achievements }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Associated With OEM</dt>
+                <dd>{{ userDetails.assocWithOEM ? 'Yes' : 'No' }}</dd>
+            </dl>
+            <dl class="dl-horizontal" ng-if="userDetails.assocWithOEM">
+                <dt>Associated With OEM File</dt>
+                <dd>
+                    <!--a target="_blank" ng-show="userDetails.assocWithOEMFileName && userDetails.assocWithOEMFileName!='' && userDetails.assocWithOEMFileName!= null" href="{{ userDetails.assocWithOEMFileName}}">Link</a-->
+                    <a target="_blank" ng-show="userDetails.assocWithOEMFileName && userDetails.assocWithOEMFileName!='' && userDetails.assocWithOEMFileName!= null" href="FileDownload.aspx?attachid={{userDetails.assocWithOEMFileName}}&sessionid={{sessionid}}">Download OEM</a>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>OEM Company Name</dt>
+                <dd>{{ userDetails.oemCompanyName }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>OEM Known Since</dt>
+                <dd>{{ userDetails.oemKnownSince }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Products</dt>
+                <dd>{{ userDetails.products }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Clients</dt>
+                <dd>{{ userDetails.clients }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Response Time</dt>
+                <dd>{{ userDetails.responseTime }}</dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt>Working Hours</dt>
+                <dd>{{ userDetails.workingHours }}</dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt>Core Business Strength</dt>
+                <dd>{{ userDetails.strengths }}</dd>
+            </dl>
+            <dl class="dl-horizontal" ng-show="userDetails.role === 'VENDOR'">
+                <dt>Subcategories</dt>
+                <dd>{{subcategories}}</dd>
+            </dl>
+        </div>
+
+        <form name="test3" data-ng-submit="pctrl.submit('profileProfession', 'Profile Professional Information')" class="pmbb-edit" data-ng-show="pctrl.editPro === 1">
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">About Us</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.aboutUs" type="text" class="form-control">
+                    </div>
+
+                    <!--div ng-show="pmbb-edit.userDetails.aboutUs.$touched">
+                       <div class="help-block error logininput" ng-show="pmbb-edit.userDetails.aboutUs.$error.required">TAX Number and TAX photo attachment are required.</div>
+                    </div-->
+                    <!--div ng-show="pmbb-edit.$submitted || userDetails.aboutUs.$touched">
+                        <div class="fg-line" ng-show="userDetails.aboutUs.$error.required">Please enter Last Name</div>
+                    </div-->
+                </dd>
+            </dl>
+
+
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Directors/Propreitor</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.directors" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+
+
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Address</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.address" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Office/Store Image</dt>
+                <dd>
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <span class="btn btn-primary btn-file">
+                            <span class="fileinput-new">Choose a file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" accept=".jpg,.jpeg,.png" id="storeLogo" doctype="storeLogo" ng-file-select-docs="onFileSelect($files)" />
+                        </span>
+                        <span class="fileinput-filename" data-ng-model="userDetails.logoURL"></span>
+                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                    </div>
+                    <div ng-show="pctrl.imagefilesonlyforlogo">
+                        <div class="help-block error logininput" ng-show="pctrl.imagefilesonlyforlogo">Please select only images like (jpg,jpeg,png)</div>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Achievements</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.achievements" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Associated With OEM</dt>
+                <dd>
+                    <div class="toggle-switch">
+                        <input id="assocWithOEM" ng-model="userDetails.assocWithOEM" type="checkbox" hidden="hidden" />
+                        <label for="assocWithOEM" class="ts-helper"></label>
+                        <label for="assocWithOEM" class="fg-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Associated With OEM?</label>
+                    </div>
+
+                </dd>
+            </dl>
+            <div ng-show="userDetails.assocWithOEM" class="fileinput fileinput-new col-xs-12 padding0" data-provides="fileinput">
+
+
+                <dl class="dl-horizontal">
+                    <dt class="p-t-10">Manufacturer Name</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <input data-ng-model="userDetails.oemCompanyName" type="text" class="form-control">
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal">
+                    <dt class="p-t-10">Known Since</dt>
+                    <dd>
+                        <div class="fg-line">
+                            <input data-ng-model="userDetails.oemKnownSince" type="text" class="form-control">
+                        </div>
+                    </dd>
+                </dl>
+
+                <dl class="dl-horizontal">
+                    <dt class="p-t-10"></dt>
+                    <dd>
+                        <span class="btn btn-primary btn-file">
+                            <span class="fileinput-new">Choose a file</span>
+                            <span class="fileinput-exists">Change</span>
+                            <input type="file" accept=".pdf,.xlsx,.xls,.txt,.jpeg,.png,.jpg" id="assocWithOEMFile" doctype="assocWithOEM" ng-file-select-docs="onFileSelect($files)" required />
+                        </span>
+                        <span class="fileinput-filename"></span>
+                        <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                    </dd>
+                </dl>
+
+            </div>
+
+
+
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Clients</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.clients" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Established Date</dt>
+                <dd>
+                    <div class="fg-line">
+                        <!--input style="z-index:9999px;" ng-model="userDetails.establishedDate" name="establishedDate" id="establishedDate" datetime-picker date-format="dd-MM-yyyy" date-only class="form-control fg-input"/ class="input-group"-->
+                        <div moment-picker="userDetails.establishedDate" format="DD-MM-YYYY">
+                            <!-- <span class="input-group-addon">
+                                <i class="octicon octicon-calendar"></i>
+                            </span> -->
+                            <input name="establishedDate" id="establishedDate" class="form-control" placeholder="Select a date" ng-model="userDetails.establishedDate">
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Products</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.products" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Response Time</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.responseTime" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Working Hours</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.workingHours" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Core Business Strength</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="userDetails.strengths" type="text" class="form-control">
+                    </div>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal" ng-show="userDetails.role === 'VENDOR'">
+                <dt class="p-t-10">Subcategories</dt>
+                <dd>
+                    <div class="fg-line">
+                        <div isteven-multi-select
+                             disable-property="true"
+                             class="col-md-4"
+                             input-model="totalSubcats"
+                             output-model="userDetails.subcategories"
+                             button-label="subcategory"
+                             item-label="subcategory"
+                             tick-property="ticked"
+                             max-labels="1"
+                             max-height="150px">
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+            <div class="m-t-30">
+                <button class="btn btn-primary btn-sm" ng-click="pctrl.updateUserInfo();">Save</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.editPro = 0">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="pmb-block">
+    <div class="pmbb-header">
+        <!-- <h2><i class="zmdi zmdi-account m-r-5"></i> Password Management</h2> -->
+        <h2 class="collapseableh2" ng-click="pwdmng = !pwdmng; pctrl.editPwd = 1;"><i class="zmdi zmdi-account m-r-5"></i> Password Management</h2>
+        <a class="actions" data-ng-if="pctrl.editPwd === 0 && !isnegotiationrunning" data-ng-click="pctrl.editPwd = 1" href="">
+            <i class="zmdi zmdi-edit"></i>
+        </a>
+        <!-- <ul class="actions" data-ng-if="pctrl.editPwd === 0">
+            <li class="dropdown" uib-dropdown>
+                <a href="" uib-dropdown-toggle>
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right" ng-if="!isnegotiationrunning">
+                    <li>
+                        <a data-ng-click="pctrl.editPwd = 1" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body p-l-30 collapse" aria-expanded="false" uib-collapse="pwdmng" id="generatePDFHTMl">
+        <div id="editor" class="bypass"></div>
+        <form name="test4" data-ng-submit="pctrl.submit('profileInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editPwd === 1">
+            <dl class="dl-horizontal">
+                <dt class="p-t-10"> Registerd Email</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="pwdObj.username" type="text" class="form-control" value="{{ pwdObj.username }}" ng-disabled="true">
+                    </div>
+
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Old password</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="pwdObj.oldPass" type="password" class="form-control" value="{{ pwdObj.oldPass }}">
+                    </div>
+
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">New Password</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="pwdObj.newPass" type="password" class="form-control" value="{{ pwdObj.newPass }}">
+                    </div>
+
+                </dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt class="p-t-10">Confirm New Password</dt>
+                <dd>
+                    <div class="fg-line">
+                        <input data-ng-model="pwdObj.confirmNewPass" type="password" class="form-control" value="{{ pwdObj.confirmNewPass }}">
+                    </div>
+
+                </dd>
+            </dl>
+
+            <div class="m-t-30">
+                <button class="btn btn-primary btn-sm" ng-click="pctrl.updatePwd();">Save</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.editPwd = 0">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="pmb-block" ng-if="userObj.isSuperUser && userObj.credentialsVerified && userDetails.role === 'CUSTOMER' && isOTPVerified && isEmailOTPVerified">
+    <div class="pmbb-header">
+        <!-- <h2><i class="zmdi zmdi-info m-r-5"></i>Super User</h2> -->
+
+        <!-- <ul class="actions" data-ng-if="pctrl.editPro === 0">
+            <li class="dropdown" uib-dropdown>
+                <a href="" uib-dropdown-toggle>
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a data-ng-click="pctrl.editMode()" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body">
+        <a href="" ng-click="pctrl.addUser = 1" data-ng-show="pctrl.addUser === 0"><b>Add New User</b></a>
+        <form name="vendorregisterForm" data-ng-submit="pctrl.AddNewUser()" class="pmbb-edit" data-ng-show="pctrl.addUser === 1">
+            <h4><i class="zmdi zmdi-plus m-r-5 m-b-5"></i>Add New User</h4> 
+            <div class="input-group col-sm-12">
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="addnewuserobj.firstName" name="firstName" type="text" class="form-control logininput" id="firstName" required />
+                        <!--<input ng-model="vendorregisterobj.firstName" name="firstName" type="text" id="firstName"/>-->
+                        <label class="fg-label" for="firstName">First Name*</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.firstName.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.firstName.$error.required">Please enter First Name</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group col-sm-12">
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="addnewuserobj.lastName" name="lastName" type="text" class="form-control logininput" id="lastName" required />
+                        <label class="fg-label" for="lastName">Last Name</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.lastName.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.lastName.$error.required">Please enter Last Name</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group col-sm-12">
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input ng-model="addnewuserobj.email" ng-blur="checkUserUniqueResult('EMAIL',addnewuserobj.email)" name="email" type="email" class="form-control logininput" id="exampleInputEmail1" ng-change="EmailValidateVendor()" ;
+                               required />
+                        <label class="fg-label" for="email">Email Address</label>
+                    </div>
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.email.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.email.$error.required">Please enter Email</div>
+                        <div class="help-block error logininput" ng-show="!vendorregisterForm.email.$error.required && vendorregisterForm.email.$error.email">Please enter a valid Email</div>
+                    </div>
+                    <div class="help-block error logininput" ng-show="checkEmailUniqueResult">Email already exists</div>
+                </div>
+            </div>
+
+            <div class="input-group col-sm-12">
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <input type="number" ng-change="change()" ng-model="addnewuserobj.phoneNum" name="phoneNum" class="form-control logininput" id="phoneNum" ng-minlength="10" ng-maxlength="10"
+                               ng-blur="checkUserUniqueResult('PHONE',addnewuserobj.phoneNum)" required />
+                        <label class="fg-label" for="phoneNum">Phone Number</label>
+
+                    </div>
+
+
+                    <div ng-show="vendorregisterForm.$submitted || vendorregisterForm.phoneNum.$touched">
+                        <div class="help-block error logininput" ng-show="vendorregisterForm.phoneNum.$error.required">Please enter Phone Number</div>
+                        <div class="help-block error logininput" ng-show="addnewuserobj.phoneNum.$error.number">Please enter a valid phonenumber</div>
+                        <div class="help-block error logininput nowrap" ng-show="vendorregisterForm.phoneNum.$error.minlength">Phone Number must be exactly 10 digits.</div>
+                        <div class="help-block error logininput nowrap" ng-show="vendorregisterForm.phoneNum.$error.maxlength">Phone Number must be exactly 10 digits.</div>
+                    </div>
+                    <div class="help-block error logininput" ng-show="checkPhoneUniqueResult && !vendorregisterForm.phoneNum.$error.minlength && !vendorregisterForm.phoneNum.$error.minlength && !vendorregisterForm.phoneNum.$error.required">Phone number already exists</div>
+                </div>
+            </div>
+
+            <div class="input-group col-sm-12">
+                <div class="form-group fg-float">
+                    <div class="fg-line input-field">
+                        <i class="mdi-social-person-outline prefix"></i>
+                        <select ng-model="addnewuserobj.category" name="category" class="form-control" ng-options="category for category in addVendorCats" data-placeholder="Select a category...">
+                            <option value="">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.addUser = 0">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="pmb-block" ng-if="userObj.isSuperUser && userObj.credentialsVerified && userDetails.role === 'CUSTOMER' && isOTPVerified && isEmailOTPVerified">
+    <div class="pmbb-header">
+       <!--  <h2><i class="zmdi zmdi-plus m-r-5"></i>Add Vendor</h2> -->
+
+        <!-- <ul class="actions" data-ng-if="pctrl.editPro === 0">
+            <li class="dropdown" uib-dropdown>
+                <a href="" uib-dropdown-toggle>
+                    <i class="zmdi zmdi-edit"></i>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a data-ng-click="pctrl.editMode()" href="">Edit</a>
+                    </li>
+                </ul>
+            </li>
+        </ul> -->
+    </div>
+    <div class="pmbb-body">
+        <a href="" ng-click="pctrl.addVendor = 1;addVendorShow=true;" class="" data-ng-show="pctrl.addVendor === 0"><b>Add new Vendor</b></a>
+        <form name="testForm" data-ng-submit="addVendor()" class="pmbb-edit" data-ng-show="pctrl.addVendor === 1">
+            <h4><i class="zmdi zmdi-plus m-r-5 m-b-5"></i>Add Vendor</h4> 
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input type="text" ng-model="newVendor.firstName" class="form-control fg-input">
+                    <label class="fg-label">Vendor First Name</label>
+                </div>
+                <div ng-show="addVendorShow && firstvalidation">
+                    <div class="help-block error logininput" ng-show="addVendorShow && firstvalidation">Please enter Vendor First Name</div>
+                </div>
+            </div>
+            <div class="form-group fg-float  col-md-6 m-b-30">
+                <div class="fg-line">
+                    <input type="text" ng-model="newVendor.lastName" class="form-control fg-input">
+                    <label class="fg-label">Vendor Last Name</label>
+                </div>
+                <div ng-show="addVendorShow && lastvalidation">
+                    <div class="help-block error logininput" ng-show="addVendorShow && lastvalidation">Please enter Vendor Last Name</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input type="text" ng-model="newVendor.contactNum" ng-blur="checkVendorUniqueResult('PHONE',newVendor.contactNum)" class="form-control fg-input">
+                    <label class="fg-label">Contact No.</label>
+                </div>
+                <div ng-show="(addVendorShow && contactvalidation) || (addVendorShow && checkVendorPhoneUniqueResult)">
+                    <div class="help-block error logininput" ng-show="addVendorShow && contactvalidation">Please enter a valid Contact No.</div>
+                    <div class="help-block error logininput nowrap" ng-show="addVendorShow && contactvalidationlength">Phone Number must be exactly 10 digits.</div>
+
+                    <div class="help-block error logininput" ng-show="addVendorShow && checkVendorPhoneUniqueResult">Contanct No. has been already taken.</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input type="text" ng-blur="checkVendorUniqueResult('EMAIL',newVendor.email)" ng-model="newVendor.email" class="form-control fg-input">
+                    <label class="fg-label">Email Address</label>
+                </div>
+                <div ng-show="(addVendorShow && emailvalidation) || (addVendorShow && emailregxvalidation) || (addVendorShow && checkVendorEmailUniqueResult)">
+                    <div class="help-block error logininput" ng-show="addVendorShow && emailvalidation">Please enter Email Address</div>
+                    <div class="help-block error logininput" ng-show="addVendorShow && emailregxvalidation">Please enter a valid Email Address</div>
+                    <div class="help-block error logininput" ng-show="addVendorShow && checkVendorEmailUniqueResult">Email Address has been already taken.</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input type="text" ng-model="newVendor.knownSince" class="form-control fg-input">
+                    <label class="fg-label">Vendor known since:</label>
+                </div>
+            </div>
+            <div class=" form-group fg-float col-sm-6 m-b-30" style="margin-top: -7px;">
+                <div class="fg-line input-field">
+                    <select ng-model="newVendor.category"  chosen data-placeholder="Select a category..."  class="form-control" ng-options="category for category in addVendorCats"></select>
+                    <label class="fg-label" for="category">Select a Category...</label>
+                </div>
+                <!--Category: <span ng-bind="formRequest.category" />-->
+                <div ng-show="addVendorShow && categoryvalidation">
+                    <div class="help-block error logininput" ng-show="addVendorShow && categoryvalidation">Please enter Vendor Category</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input type="text" ng-model="newVendor.companyName" class="form-control fg-input">
+                    <label class="fg-label">Vendor Company Name</label>
+                </div>
+                <div ng-show="addVendorShow && companyvalidation">
+                    <div class="help-block error logininput" ng-show="addVendorShow && companyvalidation">Please enter Vendor Company Name</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input ng-blur="checkVendorUniqueResult('PAN',newVendor.panno)" type="text" ng-model="newVendor.panno" class="form-control fg-input">
+                    <label class="fg-label">PAN</label>
+                </div>
+                <div ng-show="(addVendorShow && panregxvalidation) || (addVendorShow && checkPANUniqueResult)">
+                    <div class="help-block error logininput" ng-show="addVendorShow && panregxvalidation">Please enter a valid Pan Number (Ex : ABCDE1234F)</div>
+                    <div class="help-block error logininput" ng-show="addVendorShow && checkPANUniqueResult">PAN has been already taken.</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input ng-blur="checkVendorUniqueResult('TIN',newVendor.vatNum)" type="text" ng-model="newVendor.vatNum" class="form-control fg-input">
+                    <label class="fg-label">TIN</label>
+                </div>
+                <div ng-show="(addVendorShow && tinvalidation) || (addVendorShow && checkTINUniqueResult)">
+                    <div class="help-block error logininput" ng-show="addVendorShow && tinvalidation">Please enter a valid 11 digit TIN Number</div>
+                    <div class="help-block error logininput" ng-show="addVendorShow && checkTINUniqueResult">TIN has been already taken.</div>
+                </div>
+            </div>
+            <div class="form-group fg-float col-sm-6 m-b-30">
+                <div class="fg-line">
+                    <input ng-blur="checkVendorUniqueResult('STN',newVendor.serviceTaxNo)" type="text" ng-model="newVendor.serviceTaxNo" class="form-control fg-input">
+                    <label class="fg-label">STN</label>
+                </div>
+                <div ng-show="(addVendorShow && stnvalidation) || addVendorShow && checkSTNUniqueResult">
+                    <div class="help-block error logininput" ng-show="addVendorShow && stnvalidation">Please enter a valid 15 digit STN</div>
+                    <div class="help-block error logininput" ng-show="addVendorShow && checkSTNUniqueResult">STN has been already taken.</div>
+                </div>
+            </div>
+            <div class="m-t-30">
+                <button type="submit" class="btn btn-primary btn-sm">Add</button>
+                <button class="btn btn-link btn-sm" data-ng-click="pctrl.addVendor = 0">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

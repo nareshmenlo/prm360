@@ -1,0 +1,38 @@
+﻿<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="headerCtrl as hctrl"></header>
+<div class="container" data-ng-controller="loginCtrl">
+    <section id="main">
+        <section id="content">
+            <div class="block-header">
+                <h2>Welcome, {{userName}}. Please enter the OTP sent to your email and reset your password.</h2>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Reset Password
+                </div>
+                <div class="card-body card-padding">
+                    <div class="row">
+                        <div class="fg-line input-field fg-toggled">
+                            <input ng-model="resetpass.OTP" id="OTP" name="OTP" type="text" class="form-control fg-input" required>
+                            <label class="selectfield fg-label" for="OTP">OTP</label>
+                        </div>
+                        <div class="fg-line input-field fg-toggled">
+                            <input ng-model="resetpass.NewPass" id="NewPass" name="NewPass" type="text" class="form-control fg-input" required>
+                            <label class="selectfield fg-label" for="NewPass">New Password</label>
+                        </div>
+                        <div class="fg-line input-field fg-toggled">
+                            <input ng-model="resetpass.ConfNewPass" id="ConfNewPass" name="ConfNewPass" type="text" class="form-control fg-input" required>
+                            <label class="selectfield fg-label" for="ConfNewPass">Confirm New Password</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-left top-buffer col-md-4 fltleft padding0">
+                    <button class='btn btn-primary btn-sm' ng-click="resetpassword()">Save</button>
+                </div>
+
+            </div>
+
+        </section>
+    </section>
+</div>

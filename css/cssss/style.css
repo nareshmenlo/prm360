@@ -1,0 +1,386 @@
+/*login styles */
+.lc-block:not(.lcb-alt){
+  /*padding:29px 70px 29px 26px;*/
+      padding: 29px 45px 29px 15px;
+}
+.lc-block{
+  width: 350px;
+}
+.registerations{
+  color: #00bcd4;
+}
+
+.registerations:hover{
+  color: #f00;
+}
+.forgotcolor{
+  color: #f44336 !important;
+  text-align: right;
+  float: right;
+}
+.lc-block .checkbox{
+  margin:5px 0 0 5px;
+}
+form.loginForm {
+  margin-bottom: 10px !important;
+}
+.registrationDiv{
+  margin-bottom: 0px;
+  margin-top: 15px;
+}
+.forgotfielddiv{
+  margin-top: 40px;
+}
+.auctionImage{
+  height: 125px;
+  width: 125px;
+}
+/*end login styels*/
+
+/* tile styles */
+h4.titlelink{
+      position: relative;
+    overflow: hidden;
+    height: 35px;
+}
+/*end tile styles*/
+.padding0{
+  padding: 0px;
+}
+#sidebar,#chat{
+	top: 118px;
+}
+.logo{
+	margin-bottom: 40px;
+}
+.lc-block{
+  margin-top: 100px;
+}
+.pl0{
+  padding-left: 0px;
+}
+.pr0{
+  padding-right: 0px;
+}
+.vendorsLi{
+  text-align: left;
+  padding-left: 30px !important;
+}
+.header-inner {
+    padding: 17px 0 0 0;
+}
+.form-group {
+    margin-bottom: 30px;
+}
+  li.active-result,  li.result-selected{
+    text-align: left !important;
+  }
+form.loginForm .input-group-addon,form.registerForm .input-group-addon,form.vendorregisterForm .input-group-addon{
+  min-width: 20px !important;
+}
+
+form.loginForm .alert{
+  font-size: 13px;
+    margin-left: 23px;
+    margin-bottom: 32px;
+}
+.fltleft{
+  float: left;
+}
+.clear-both{
+  clear: both;
+}
+.error.logininput{
+  color: #f00;
+  text-align: left;
+}
+section#content{
+	margin-top: 25px;
+}
+.card {
+    position: relative;
+    margin-bottom: 24px;
+    background-color: #ffffff;
+    color: #313534;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+}
+.card-body:last-child {
+    border-radius: 0 0 2px 2px;
+}
+.alert.alert-callout {
+    position: relative;
+    padding-left: 20px;
+    background: #ffffff;
+    color: #313534;
+    border-radius: 3px;
+    border-color: rgba(83, 88, 88, 0.15);
+}
+.cardHeight{
+  min-height: 120px;
+  border-radius: 10px;
+}
+.vendorName {
+    text-transform: capitalize;
+}
+/*Rating system styles*/
+div.stars {
+  width: 270px;
+  display: inline-block;
+}
+.reduceseconds{
+  margin-top: 10px;
+  text-align: center;
+}
+.row.reduceseconds button {
+    font-size: 10px;
+}
+input.star { display: none; }
+
+label.star {
+  float: right;
+  padding: 10px;
+  font-size: 36px;
+  color: #444;
+  transition: all .2s;
+}
+
+input.star:checked ~ label.star:before {
+  content: '\f005';
+  color: #FD4;
+  transition: all .25s;
+}
+
+input.star-5:checked ~ label.star:before {
+  color: #FE7;
+  text-shadow: 0 0 20px #952;
+}
+.icons .bids {
+    color: #ccc;
+}
+.line1{border-bottom:1px solid #efefef;margin:5px 0 10px}
+input.star-1:checked ~ label.star:before { color: #F62; }
+
+label.star:hover { transform: rotate(-15deg) scale(1.3); }
+
+label.star:before {
+  content: '\f006';
+  font-family: FontAwesome;
+}
+/*form.loginForm {
+  margin-bottom: 50px;
+}*/
+.top-buffer{
+  margin-top:20px;
+}
+
+.bottom-buffer{
+	margin-bottom:30px;
+}
+
+.left-buffer{
+  margin-left:30px;
+}
+.ih-item.ih-material a:hover .info-content{opacity:1;-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);transform:scale(1)}.ih-item.ih-material a:hover .info-mask{opacity:.8;-webkit-transform:scale(1.21);-moz-transform:scale(1.21);-ms-transform:scale(1.21);-o-transform:scale(1.21);transform:scale(1.21)}
+.ih-item.ih-material {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.ih-item a {
+    color: #333;
+}
+.ih-item.ih-material .info-mask {
+    content: '';
+    position: absolute;
+    top: -25%;
+    left: 0;
+    right: 0;
+    padding-bottom: 100%;
+    border-radius: 50%;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -moz-transform: scale(0);
+    -ms-transform: scale(0);
+    -o-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    -moz-transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+timer span{
+  display: inline-block !important;
+  padding: 3px;
+  text-align: center;
+}
+timer span.countdown_amount{
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+.ih-item.ih-material .info-content {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    -o-transform: scale(0.5);
+    transform: scale(0.5);
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.ih-item.ih-material .info-content .info-inner h3 {
+    margin: 50px 0 10px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 18px;
+}
+.ih-item.ih-material .info-content .info-inner p {
+    font-style: italic;
+    font-size: 12px;
+    color: #eee;
+}
+.ih-item.ih-material .info-content .info-inner {
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+.bg-primary {
+    background-color: #009688;
+    color: #fff;
+}
+.bg-white {
+    background-color: #fff;
+    color: #3D4051;
+}
+.card .card-title {
+    font-size: 24px;
+}
+.card .card-image .card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 20px;
+    color: #fff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.25);
+}
+.card .card-content .card-profile-img img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.card .card-content p {
+    margin: 0;
+    color: inherit;
+}
+.card .card-action>a {
+    margin-right: 20px;
+    text-transform: uppercase;
+}
+.bg-white a {
+    color: #3D4051;
+}
+.card .card-image {
+    position: relative;
+}
+.card .card-content {
+    padding: 10px;
+    border-radius: 0 0 2px 2px;
+}
+.card .card-action {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding: 10px;
+}
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
+  margin-bottom: 0px;
+  height: 25px;
+  line-height: 0px;
+}
+
+.help-block {
+     margin-top: 0px;    
+}
+.error.logininput {
+    position: absolute;
+}
+/*vendors div*/
+.addNewVendor,.selectVendors{
+    padding: 0px;
+}
+.addNewVendor span{
+  float: right;
+}
+.selectVendors span{
+  float: left;
+}
+.vendorsDivA{
+  padding-bottom: 20px;
+}
+.vendorsDivB .vendorBUl:last-child{
+  padding-bottom: 20px; 
+}
+.p-r-0{
+  padding-right: 0px ;
+}
+.p-l-0{
+  padding-left: 0px;
+}
+/* Hot Auctions Styles */
+
+.itemdata{
+  float:left;
+}
+
+.hotauctions,.todayauctions,.scheduledauctions{
+  min-height:350px;
+}
+
+    .ellipsis {
+      overflow: hidden;
+      height: 180px;
+      line-height: 25px;
+      margin: 20px; 
+    }
+
+    .ellipsis:before {
+      content:"";
+      float: left;
+      width: 5px; height: 180px; }
+
+    .ellipsis > *:first-child {
+      float: right;
+      width: 100%;
+      margin-left: -5px; }    
+
+    .ellipsis:after {
+      content: "\02026more";  
+
+      box-sizing: content-box;
+      -webkit-box-sizing: content-box;
+      -moz-box-sizing: content-box;
+
+      float: right; position: relative;
+      top: -25px; left: 100%; 
+      width: 3em; margin-left: -3em;
+      padding-right: 5px;
+      
+      text-align: right;
+
+      background: -webkit-gradient(linear, left top, right top,
+        from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+      background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);     
+      background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+      background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white); }
+

@@ -1,0 +1,56 @@
+<div class="container" data-ng-controller="profileCtrl as pctrl">
+    <div class="block-header">
+        <h2>{{userObj.firstName +" "+ userObj.lastName}}  -  {{userStatus}}</h2>
+    </div>
+    <div class="card" id="profile-main">
+        <div class="pm-overview c-overflow padding0  col-md-4">
+			<div class="" style="margin-left:25px;margin-top:20px;margin-right:25px;"> 
+                <img ng-if= "userDetails.profileFileUrl" class="img-responsive" src="{{ userDetails.profileFileUrl }}" > 
+                <img ng-if= "!userDetails.profileFileUrl" class="img-responsive" src="img/profile-pics/nopic.jpg" alt="">
+			</div>
+            <ul class="actions" style="position: absolute;left: 260px;top: 5px;" data-ng-if="pctrl.editPic === 0">
+                <li class="dropdown" uib-dropdown>
+                    <a href="" uib-dropdown-toggle>
+                        <i class="zmdi zmdi-edit"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a data-ng-click="pctrl.editPic = 1" href="">Edit</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <form data-ng-submit="pctrl.submit('profileInfo', 'Profile Information')" class="pmbb-edit" data-ng-if="pctrl.editPic === 1" style="margin-left:25px;margin-top:20px;margin-right:25px;">
+                <br>
+                <div class="fileinput fileinput-new" data-provides="fileinput">
+                    <span class="btn btn-primary btn-file">
+                        <span class="fileinput-new">Choose a file</span>
+                        <span class="fileinput-exists">Change</span>
+                        <input type="file" accept=".jpg,.jpeg,.png" id="profileFile" doctype="profileFile" ng-file-select-docs="onFileSelect($files)" />
+                    </span>
+                    <span class="fileinput-filename" data-ng-model="userDetails.profileFileName"></span>
+                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput">&times;</a>
+                </div>
+
+                <div class="m-t-30">
+                    <button class="btn btn-primary btn-sm" ng-click="pctrl.updateUserInfo();">Save</button>
+                    <button class="btn btn-link btn-sm" data-ng-click="pctrl.editPic = 0" >Cancel</button>
+                </div>
+            </form>
+            <div class="pmo-block pmo-contact hidden-xs">
+                <br>
+                <h2><strong>Account Information</strong></h2>
+                <ul>
+                    <li><i class="zmdi zmdi-city"></i> <strong>Company Name:</strong> {{ userDetails.companyName }} </li>
+                    <li><i class="zmdi zmdi-star"></i> <strong>Category:</strong> {{ userDetails.category }} </li>
+                    <li><i class="zmdi zmdi-thumb-up"></i> <strong>Score:</strong> {{ userDetails.registrationScore }}</li>
+                    <li><i class="zmdi zmdi-account"></i> <strong>Role:</strong> {{ userDetails.role }} </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pm-body clearfix">
+            <ul class="tab-nav tn-justified" data-ng-include="'template/profile-menu.html'"></ul>
+            <data ui-view></data>
+        </div>
+    </div>
+</div>

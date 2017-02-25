@@ -1,0 +1,119 @@
+<header id="header" data-current-skin={{mactrl.currentSkin}} data-ng-include="'template/header.html'" data-ng-controller="viewprofileCtrl"></header>
+
+    <div class="pmbb-header">
+        <h4><i class="zmdi zmdi-account m-r-5"></i> Basic Information</h4>
+    </div>
+    <div class="pmbb-body p-l-30" id="generatePDFHTMl">
+    <div id="editor" class="bypass"></div>
+            <dl class="dl-horizontal">
+                <dt>First Name</dt>
+                <dd>{{ userObj.firstName }}</dd>
+            </dl> 
+            <dl class="dl-horizontal">
+                <dt>Last Name</dt>
+                <dd>{{ userObj.lastName }}</dd>
+            </dl>            
+    </div>
+
+
+<div class="pmb-block">
+    <div class="pmbb-header">
+        <h4><i class="zmdi zmdi-phone m-r-5"></i> Contact Information</h4>
+    </div>
+    <div class="pmbb-body p-l-30">
+        <div class="pmbb-view" style="overflow-wrap: break-word;">
+            <dl class="dl-horizontal">
+                <dt>Mobile Phone</dt>
+                <dd>{{ userObj.phoneNum }} 
+                    <span ng-if="isOTPVerified != 1" style="color:red;">Not Verified</span>
+                    <span ng-if="isOTPVerified != 1" data-ng-click="otpModalInstances();" style="color:blue;cursor: pointer;">click to verify OTP</span>
+                    <span ng-if="isOTPVerified == 1" style="color:green;">Verified</span>
+                </dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Email Address</dt>
+                <dd>{{ userObj.email }} 
+                    <span ng-if="isEmailOTPVerified != 1" style="color:red;">Not Verified</span>
+                    <span ng-if="isEmailOTPVerified != 1" data-ng-click="emailModalInstances(); sendEmailOTPagain()" style="color:blue;cursor: pointer;">click to verify EMAIL</span>
+                    <span ng-if="isEmailOTPVerified == 1" style="color:green;">Verified</span>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+    <div class="pmbb-header">
+        <h4><i class="zmdi zmdi-info m-r-5"></i> Professional Information</h4>
+    </div>
+    <div class="pmbb-body p-l-30">
+        <div class="pmbb-view" style="overflow-wrap: break-word;" data-ng-if="pctrl.editPro === 0">
+            <dl class="dl-horizontal">
+                <dt>About Us</dt>
+                <dd>{{ userDetails.aboutUs }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Directors/ Propreitor</dt>
+                <dd>{{ userDetails.directors }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Address</dt>
+                <dd>{{ userDetails.address }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Office/Store Image</dt>
+                <dd><img style="width: 80px;height: 80px;" class="text-center otplogo" ng-show="userDetails.logoURL!= null" src="{{ userDetails.logoURL }}" ></dd>
+            </dl>
+             <dl class="dl-horizontal">
+                <dt>Established Date</dt>
+                <!-- <dd>{{userDetails.establishedDate | ctime | date:'medium'}}</dd> -->
+                <dd>{{userDetails.establishedDate}}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Achievements</dt>
+                <dd>{{ userDetails.achievements }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Associated With OEM</dt>
+                <dd>{{ userDetails.assocWithOEM ? 'Yes' : 'No' }}</dd>               
+            </dl>
+            <dl class="dl-horizontal" ng-if="userDetails.assocWithOEM">
+                <dt>Associated With OEM File</dt>
+                <dd><a target="_blank" ng-show="userDetails.assocWithOEMFileName && userDetails.assocWithOEMFileName!='' && userDetails.assocWithOEMFileName!= null" href="{{ userDetails.assocWithOEMFileName}}">Link</a></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>OEM Company Name</dt>
+                <dd>{{ userDetails.oemCompanyName }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>OEM Known Since</dt>
+                <dd>{{ userDetails.oemKnownSince }}</dd>
+            </dl>
+             <dl class="dl-horizontal">
+                <dt>Products</dt>
+                <dd>{{ userDetails.products }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Clients</dt>
+                <dd>{{ userDetails.clients }}</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>Response Time</dt>
+                <dd>{{ userDetails.responseTime }}</dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt>Working Hours</dt>
+                <dd>{{ userDetails.workingHours }}</dd>
+            </dl>
+
+            <dl class="dl-horizontal">
+                <dt>Core Business Strength</dt>
+                <dd>{{ userDetails.strengths }}</dd>
+            </dl>
+        </div>
+    </div>
+
